@@ -52,5 +52,7 @@ Table of Contents
 
 ### Sanity
 `kubectl get nodes`
+
 `kubectl proxy`
+
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
