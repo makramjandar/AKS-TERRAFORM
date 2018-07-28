@@ -4,14 +4,14 @@
 Table of Contents
 =================
 
-* [ServicePrincipal and Subscription ID](#serviceprincipal-and-subscription-id)
-* [Install terraform locally](#install-terraform-locally)
-* [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
-* [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
-* [Fill in the variables.tf](#fill-in-the-variables-file)
-* [Terraform for aks](#terraform-for-aks)
-* [kube_config](#kube_config)
-* [Sanity](#sanity)
+1. [ServicePrincipal and Subscription ID](#serviceprincipal-and-subscription-id)
+2. [Install terraform locally](#install-terraform-locally)
+3. [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
+4. [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
+5. [Fill in the variables.tf](#fill-in-the-variables-file)
+6. [Terraform for aks](#terraform-for-aks)
+7. [kube_config](#kube_config)
+8. [Sanity](#sanity)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure openshiftsp`
