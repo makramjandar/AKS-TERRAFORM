@@ -38,7 +38,9 @@ Table of Contents
 
 ### Terraform for aks
 `terraform init`
+
 `terraform plan -out run.plan`
+
 `terraform apply "run.plan"`
 
 ### kube_config
