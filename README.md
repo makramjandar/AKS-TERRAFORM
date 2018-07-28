@@ -8,7 +8,7 @@ Table of Contents
 * [Install terraform locally](#install-terraform-locally)
 * [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
 * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
-* [Fill in the variables.tf](#fill-in-the-variables.tf)
+* [Fill in the variables.tf](#fill-in-the-variables-file)
 * [Terraform for aks](#terraform-for-aks)
 * [kube_config](#kube_config)
 * [Sanity](#sanity)
@@ -34,7 +34,7 @@ Table of Contents
 ### Clone this repo in the azure-cli-python container
 `git clone https://github.com/dwaiba/aks-terraform`
 
-### Fill in the variables.tf 
+### Fill in the variables file
 
 ### Terraform for aks
 `terraform init`
