@@ -37,6 +37,8 @@ Table of Contents
 ### Fill in the variables file
 
 ### Terraform for aks
+`mv ~/terraform aks-terraform/`
+`cd aks-terraform`
 `terraform init`
 
 `terraform plan -out run.plan`
