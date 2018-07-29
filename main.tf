@@ -33,14 +33,14 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_id     = "${var.client_id}"
     client_secret = "${var.client_secret}"
   }
+}
 
-  resource "azurerm_storage_account" "aci-sa" {
-    name                     = "${var.resource_storage_acct}"
-    resource_group_name      = "${azurerm_resource_group.k8s.name}"
-    location                 = "${azurerm_resource_group.k8s.location}"
-    account_tier             = "Standard"
-    account_replication_type = "LRS"
-  }
+resource "azurerm_storage_account" "aci-sa" {
+  name                     = "${var.resource_storage_acct}"
+  resource_group_name      = "${azurerm_resource_group.k8s.name}"
+  location                 = "${azurerm_resource_group.k8s.location}"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
 
 resource "azurerm_storage_share" "aci-share" {
