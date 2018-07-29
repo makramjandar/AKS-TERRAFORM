@@ -33,7 +33,7 @@ variable "agent_count" {
 }
 
 variable "resource_storage_acct" {
-  default     = "aci-sa"
+  default     = "acisa12345"
 }
 
 variable "resource_aci-dev-share" {
