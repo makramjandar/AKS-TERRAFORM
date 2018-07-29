@@ -31,3 +31,17 @@ variable "admin_username" {
 variable "agent_count" {
   default     = "3"
 }
+
+variable "resource_storage_acct" {
+  default     = "aci-sa"
+}
+
+variable "resource_aci-dev-share" {
+  default     = "aci-dev-share"
+}
+variable "resource_aci-hw" {
+  default     = "aci-helloworld"
+}
+variable "resource_dns_aci-label" {
+  default     = "aci-dev-hw"
+}
