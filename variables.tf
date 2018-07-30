@@ -6,11 +6,11 @@ variable "location" {
 }
 
 variable "client_id" {
-  default     = "68865d62-eae7-4873-ac84-2b3a0bc35344"
+  default     = "xxxxxx-xxxx-xxxx-xxxxx-xxxxx"
 }
 
 variable "client_secret" {
-  default     = "3fUpt2Fmvl6RWnLZSJUSSoQfj1hjPatJ"
+  default     = "xxxxxxxxxxxxxxxxxxxxx"
 }
 
 variable "cluster_name" {
@@ -22,7 +22,7 @@ variable "dns_prefix" {
 }
 
 variable "ssh_public_key" {
-  default     = "/id_rsa.pub"
+  default     = "/aks-terraform/id_rsa.pub"
 }
 variable "admin_username" {
   default     = "aksadmin"
