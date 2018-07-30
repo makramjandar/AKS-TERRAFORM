@@ -96,8 +96,9 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
   }
-
+/*
   provisioner "local-exec" {
     command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
   }
+ */
 }
