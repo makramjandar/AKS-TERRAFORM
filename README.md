@@ -7,7 +7,7 @@ Table of Contents
 1. [ServicePrincipal and Subscription ID](#serviceprincipal-and-subscription-id)
 2. [Install terraform locally](#install-terraform-locally)
 3. [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
-4. [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
+4. [Clone this repo in the azure-cli-python container and install kubectl](#clone-this-repo-in-the-azure-cli-python-container-and-install-kubectl)
 5. [Fill in the variables.tf](#fill-in-the-variables-file)
 6. [Terraform for aks](#terraform-for-aks)
 7. [kube_config](#kube_config)
@@ -31,8 +31,14 @@ Table of Contents
 
 `docker run -dti --name=azurecli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp ~/.ssh/id_rsa azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
 
-### Clone this repo in the azure-cli-python container
+### Clone this repo in the azure-cli-python container and install kubectl
 `git clone https://github.com/dwaiba/aks-terraform`
+
+`curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;`
+
+`chmod +x ./kubectl;`
+
+`mv ./kubectl /usr/local/bin/kubectl;`
 
 ### Fill in the variables file
 
