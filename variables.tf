@@ -6,11 +6,11 @@ variable "location" {
 }
 
 variable "client_id" {
-  default     = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  default     = "68865d62-eae7-4873-ac84-2b3a0bc35344"
 }
 
 variable "client_secret" {
-  default     = "xxxxxxxxxxxxxxx"
+  default     = "3fUpt2Fmvl6RWnLZSJUSSoQfj1hjPatJ"
 }
 
 variable "cluster_name" {
