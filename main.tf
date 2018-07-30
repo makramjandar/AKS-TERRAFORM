@@ -96,9 +96,20 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
   }
-/*
+
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
+  }
+
+  provisioner "local-exec" {
+    command = "chmod +x ./kubectl;"
+  }
+
+  provisioner "local-exec" {
+    command = "mv ./kubectl /usr/local/bin/kubectl;"
+  }
+
   provisioner "local-exec" {
     command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
   }
- */
 }
