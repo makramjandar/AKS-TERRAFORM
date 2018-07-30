@@ -14,7 +14,7 @@ Table of Contents
 8. [Sanity](#sanity)
 
 ### ServicePrincipal and Subscription ID
-`docker run -ti docker4x/create-sp-azure openshiftsp`
+`docker run -ti docker4x/create-sp-azure aksadmin`
 
 `Your access credentials ==================================================`
 
