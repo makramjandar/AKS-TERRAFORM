@@ -40,6 +40,8 @@ Table of Contents
 
 `mv ./kubectl /usr/local/bin/kubectl;`
 
+`mv /id_rsa.pub /aks-terraform;`
+
 ### Fill in the variables file
 
 ### Terraform for aks
