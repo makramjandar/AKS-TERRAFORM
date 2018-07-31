@@ -23,6 +23,6 @@ Master:
 Agent:
   Enabled: false
 Persistence:
-  Size: 100Gi
+  Size: 20Gi
 rbac:
   install: false
