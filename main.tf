@@ -112,4 +112,36 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
   }
+
+  provisioner "local-exec" {
+    command = "kubectl create -f azure-load-balancer.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl apply"
+  }
+
+  provisioner "local-exec" {
+    command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "chmod 700 get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "./get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "helm init"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl create -f helm-rbac.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install stable/jenkins"
+  }
 }
