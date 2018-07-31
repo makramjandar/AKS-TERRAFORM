@@ -45,3 +45,6 @@ variable "resource_aci-hw" {
 variable "resource_dns_aci-label" {
   default     = "aci-dev-hw"
 }
+variable "k8suser" {
+  default     = "clusterUser_hclaks_dwai_hclaks_dwai"
+}
