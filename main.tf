@@ -114,14 +114,6 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl create -f azure-load-balancer.yaml"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl apply"
-  }
-
-  provisioner "local-exec" {
     command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
   }
 
@@ -140,12 +132,28 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "kubectl create -f helm-rbac.yaml"
   }
-  
+
+  provisioner "local-exec" {
+    command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
+  }
+
   provisioner "local-exec" {
     command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=${var.k8suser}"
   }
 
   provisioner "local-exec" {
-    command = "helm install -n cd stable/jenkins -f values.yaml --version 0.16.6 --wait"
+    command = "kubectl create -f azure-load-balancer.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
+  }
+
+  provisioner "local-exec" {
+    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
   }
 }
