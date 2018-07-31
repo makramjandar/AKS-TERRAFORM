@@ -142,7 +142,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=${var.k8suser}"
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${var.k8suser}\""
   }
 
   provisioner "local-exec" {
