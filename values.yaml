@@ -20,13 +20,9 @@ Master:
   Cpu: "1"
   Memory: "3500Mi"
   JavaOpts: "-Xms3500m -Xmx3500m"
-  ServiceType: ClusterIP
 Agent:
   Enabled: false
 Persistence:
   Size: 100Gi
-NetworkPolicy:
-  ApiVersion: networking.k8s.io/v1
 rbac:
-  install: true
-  serviceAccountName: hclaks-jenkins
+  install: false
