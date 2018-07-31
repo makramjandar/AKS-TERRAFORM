@@ -140,6 +140,10 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "kubectl create -f helm-rbac.yaml"
   }
+  
+  provisioner "local-exec" {
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user="${var.k8suser}""
+  }
 
   provisioner "local-exec" {
     command = "helm install stable/jenkins"
