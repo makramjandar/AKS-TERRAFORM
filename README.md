@@ -8,12 +8,12 @@ Table of Contents
 2. [Install terraform locally](#install-terraform-locally)
 3. [Automatic provisioning](#automatic-provisioning)
 4. [Manual stepped provisioning](#manual-stepped-provisioning)
-  * [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
-  * [Clone this repo in the azure-cli-python container and install kubectl](#clone-this-repo-in-the-azure-cli-python-container-and-install-kubectl)
-  * [Fill in the variables.tf](#fill-in-the-variables-file)
-  * [Terraform for aks](#terraform-for-aks)
-  * [kube_config](#kube_config)
-  * [Sanity](#sanity)
+   * [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
+   * [Clone this repo in the azure-cli-python container and install kubectl](#clone-this-repo-in-the-azure-cli-python-container-and-install-kubectl)
+   * [Fill in the variables.tf](#fill-in-the-variables-file)
+   * [Terraform for aks](#terraform-for-aks)
+   * [kube_config](#kube_config)
+   * [Sanity](#sanity)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
