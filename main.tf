@@ -127,16 +127,24 @@ resource "null_resource" "provision" {
   }
 
   /**
-          provisioner "local-exec" {
-            command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-          } 
-        **/
+            provisioner "local-exec" {
+              command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+            } 
+          **/
   provisioner "local-exec" {
     command = "helm init"
   }
 
   provisioner "local-exec" {
     command = "kubectl create -f helm-rbac.yaml"
+  }
+
+  resource "null_resource" "wait_for_kubernetes_api" {
+    provisioner "local-exec" {
+      command = <<EOF
+            sleep 60
+      EOF
+    }
   }
 
   provisioner "local-exec" {
@@ -152,14 +160,14 @@ resource "null_resource" "provision" {
   }
 
   /**
-    provisioner "local-exec" {
-      command = "kubectl create -f azure-load-balancer.yaml"
-    }
+      provisioner "local-exec" {
+        command = "kubectl create -f azure-load-balancer.yaml"
+      }
 
-          provisioner "local-exec" {
-            command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
-          }
-        **/
+            provisioner "local-exec" {
+              command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
+            }
+          **/
   provisioner "local-exec" {
     command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
   }
