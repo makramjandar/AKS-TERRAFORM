@@ -28,7 +28,8 @@ Table of Contents
 
 ### Install terraform locally
 `wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -O temp.zip; unzip temp.zip; rm temp.zip ;sudo cp terraform /usr/local/bin`
-### Automatic provisioning
+### Automatic provisioning 
+**Please replace values between --**
 Please destroy cluster as such :
 
 `docker exec -ti azure-cli-python---yournameorBU-- bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
