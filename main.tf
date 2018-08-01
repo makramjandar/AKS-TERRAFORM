@@ -127,10 +127,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-      provisioner "local-exec" {
-        command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-      } 
-    **/
+        provisioner "local-exec" {
+          command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+        } 
+      **/
   provisioner "local-exec" {
     command = "helm init"
   }
@@ -148,7 +148,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${var.k8suser}\""
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${local.username}\""
   }
 
   provisioner "local-exec" {
@@ -156,10 +156,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-      provisioner "local-exec" {
-        command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
-      }
-    **/
+        provisioner "local-exec" {
+          command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
+        }
+      **/
   provisioner "local-exec" {
     command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
   }
