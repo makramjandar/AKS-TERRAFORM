@@ -1,6 +1,6 @@
 Master:
   InstallPlugins:
-    - kubernetes:1.7.1
+    - kubernetes:1.12.0
     - workflow-aggregator:2.5
     - workflow-job:2.21
     - credentials-binding:1.16
@@ -10,13 +10,13 @@ Master:
     - ansicolor:0.5.2
     - custom-tools-plugin:0.5
     - envinject:2.1.5
-    - git-parameter:0.9.0
-    - sonar:2.6.1
+    - git-parameter:0.9.3
+    - sonar:2.8
     - startup-trigger-plugin:2.8
     - timestamper:1.8.9
     - analysis-core:1.92
     - dependency-check-jenkins-plugin:3.0.2
-    - maven-plugin:3.0
+    - maven-plugin:3.1.2
   Cpu: "1"
   Memory: "3500Mi"
   JavaOpts: "-Xms3500m -Xmx3500m"
