@@ -31,16 +31,16 @@ Table of Contents
 ### Automatic provisioning 
 **Please replace values between --**
 Please destroy cluster as such :
+`export yournameorBU="yournameorBU"`
+`docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
 
-`docker exec -ti azure-cli-python---yournameorBU-- bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
+`docker kill azure-cli-python-$yournameorBU`
 
-`docker kill azure-cli-python---yournameorBU--`
-
-`docker rm azure-cli-python---yournameorBU--`
+`docker rm azure-cli-python-$yournameorBU`
 
 Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
 
-`docker run -dti --name=azure-cli-python---yournameorBU-- --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python---yournameorBU--:/ && docker cp id_rsa.pub azure-cli-python---yournameorBU--:/ && docker exec -ti azure-cli-python---yournameorBU-- bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
+`docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
 
 Terraform will now prompt for the 5 variables as below in sequence:
 
