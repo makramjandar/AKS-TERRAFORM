@@ -57,7 +57,8 @@ Values and conventions for the 5 variables are as follows :
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as creted in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
-* dns_prefix as "--org--_aks_--yournameorBU--"
+* dns_prefix as "--org--aks--yournameorBU--"
+> The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
