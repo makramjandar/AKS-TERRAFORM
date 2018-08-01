@@ -19,6 +19,11 @@ variable "client_id" {}
 
 variable "client_secret" {}
 
+
+variable "cluster_name" {}
+
+variable "dns_prefix" {}
+/**
 variable "cluster_name" {
   default = "hclaks"
 }
@@ -26,7 +31,7 @@ variable "cluster_name" {
 variable "dns_prefix" {
   default = "hclaks"
 }
-
+**/
 variable "ssh_public_key" {
   default = "/aks-terraform/id_rsa.pub"
 }
