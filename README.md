@@ -31,15 +31,15 @@ Table of Contents
 ### Automatic provisioning
 Please destroy cluster as such :
 
-`docker exec -ti azure-cli-python-<yournameorBU> bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
+`docker exec -ti azure-cli-python---yournameorBU-- bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
 
-`docker kill azure-cli-python-<yournameorBU>`
+`docker kill azure-cli-python---yournameorBU--`
 
-`docker rm azure-cli-python-<yournameorBU>`
+`docker rm azure-cli-python---yournameorBU--`
 
 Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
 
-`docker run -dti --name=azure-cli-python-<yournameorBU> --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-<yournameorBU>:/ && docker cp id_rsa.pub azure-cli-python-<yournameorBU>:/ && docker exec -ti azure-cli-python-<yournameorBU> bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
+`docker run -dti --name=azure-cli-python---yournameorBU-- --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python---yournameorBU--:/ && docker cp id_rsa.pub azure-cli-python---yournameorBU--:/ && docker exec -ti azure-cli-python---yournameorBU-- bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
 
 Terraform will now prompt for the 5 variables as below in sequence:
 
@@ -51,11 +51,11 @@ Terraform will now prompt for the 5 variables as below in sequence:
 
 Values and conventions for the 5 variables are as follows : 
 
-* resource_group_name as "<org>_aks_<yournameorBU>"
+* resource_group_name as "--org--_aks_--yournameorBU--"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as creted in pre-req
-* cluster_name as "<org>_aks_<yournameorBU>"
-* dns_prefix as "<org>_aks_<yournameorBU>"
+* cluster_name as "--org--_aks_--yournameorBU--"
+* dns_prefix as "--org--_aks_--yournameorBU--"
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
@@ -90,7 +90,7 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 `terraform apply "run.plan"`
 
 #### kube_config
-`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
+`echo "$(terraform output kube_config)" -- ~/.kube/azurek8s`
 Also one can echo and copy content to local kubectl config
 
 `export KUBECONFIG=~/.kube/azurek8s`
