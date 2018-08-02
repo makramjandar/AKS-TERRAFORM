@@ -93,7 +93,7 @@ Optionally, you can also install kubectl locally. This repo installs kubectl in 
 `terraform apply "run.plan"`
 
 #### kube_config
-`echo "$(terraform output kube_config)" -- ~/.kube/azurek8s`
+`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
 
 Also one can echo and copy content to local kubectl config.
 
