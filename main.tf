@@ -31,6 +31,84 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
+resource "null_resource" "provision" {
+  provisioner "local-exec" {
+    command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
+  }
+
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
+  }
+
+  provisioner "local-exec" {
+    command = "chmod +x ./kubectl;"
+  }
+
+  provisioner "local-exec" {
+    command = "mv ./kubectl /usr/local/bin/kubectl;"
+  }
+
+  provisioner "local-exec" {
+    command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "chmod 700 get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "./get_helm.sh"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
+  }
+
+  /**
+                  provisioner "local-exec" {
+                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                  } 
+                **/
+  provisioner "local-exec" {
+    command = "helm init"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl create -f helm-rbac.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+            sleep 60
+      EOF
+  }
+
+  provisioner "local-exec" {
+    command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${local.username}\""
+  }
+
+  /**
+            provisioner "local-exec" {
+              command = "kubectl create -f azure-load-balancer.yaml"
+            }
+    **/
+  provisioner "local-exec" {
+    command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
+  }
+
+  provisioner "local-exec" {
+    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
+  }
+}
+
 /**
 resource "azurerm_storage_account" "aci-sa" {
   name                     = "${var.resource_storage_acct}"
@@ -93,80 +171,3 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
-resource "null_resource" "provision" {
-  provisioner "local-exec" {
-    command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
-  }
-
-  provisioner "local-exec" {
-    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
-  }
-
-  provisioner "local-exec" {
-    command = "chmod +x ./kubectl;"
-  }
-
-  provisioner "local-exec" {
-    command = "mv ./kubectl /usr/local/bin/kubectl;"
-  }
-
-  provisioner "local-exec" {
-    command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
-  }
-
-  provisioner "local-exec" {
-    command = "chmod 700 get_helm.sh"
-  }
-
-  provisioner "local-exec" {
-    command = "./get_helm.sh"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
-  }
-
-  /**
-              provisioner "local-exec" {
-                command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-              } 
-            **/
-  provisioner "local-exec" {
-    command = "helm init"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl create -f helm-rbac.yaml"
-  }
-
-  provisioner "local-exec" {
-    command = <<EOF
-            sleep 60
-      EOF
-  }
-
-  provisioner "local-exec" {
-    command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
-  }
-
-  provisioner "local-exec" {
-    command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${local.username}\""
-  }
-
-  /**
-        provisioner "local-exec" {
-          command = "kubectl create -f azure-load-balancer.yaml"
-        }
-
-              provisioner "local-exec" {
-                command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
-              }
-            **/
-  provisioner "local-exec" {
-    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
-  }
-}
