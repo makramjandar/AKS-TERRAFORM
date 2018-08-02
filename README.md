@@ -1,6 +1,3 @@
-# aks-terraform (Azure Kubernetes Service with Terraform)
-
-
 Table of Contents (Azure Kubernetes Service with Terraform)
 =================
 
