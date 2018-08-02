@@ -65,10 +65,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                  provisioner "local-exec" {
-                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                  } 
-                **/
+                    provisioner "local-exec" {
+                      command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                    } 
+                  **/
   provisioner "local-exec" {
     command = "helm init"
   }
@@ -92,16 +92,24 @@ resource "null_resource" "provision" {
   }
 
   /**
-            provisioner "local-exec" {
-              command = "kubectl create -f azure-load-balancer.yaml"
-            }
-    **/
+              provisioner "local-exec" {
+                command = "kubectl create -f azure-load-balancer.yaml"
+              }
+      **/
+  provisioner "local-exec" {
+    command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
+  }
+
+  provisioner "local-exec" {
+    command = "helm repo update"
+  }
+
   provisioner "local-exec" {
     command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
   }
 
   provisioner "local-exec" {
-    command = "helm install azure-samples/aks-helloworld --set title=\"AKS Ingress Demo\" --set serviceName=\"ingress-demo\""
+    command = "helm install azure-samples/aks-helloworld"
   }
 
   provisioner "local-exec" {
@@ -171,3 +179,4 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
+
