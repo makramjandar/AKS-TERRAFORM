@@ -4,6 +4,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 1. [ServicePrincipal and Subscription ID](#serviceprincipal-and-subscription-id)
 2. [Install terraform locally](#install-terraform-locally)
 3. [Automatic provisioning](#automatic-provisioning)
+   * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
+   * [Semi-auto with docker azure-cli-python](#semi-auto-with-docker-azure-cli-python)
 4. [Manual stepped provisioning](#manual-stepped-provisioning)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
@@ -26,8 +28,15 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 ### Install terraform locally
 `wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -O temp.zip; unzip temp.zip; rm temp.zip ;sudo cp terraform /usr/local/bin`
 ### Automatic provisioning 
-Please destroy cluster as such :
+#### All in one with docker azure-cli-python
+Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
+P.S: terraform locally installed has binary in `/usr/local/bin`
+
+`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`
+
+#### Semi-auto with docker azure-cli-python
+Please destroy cluster as such :
 `export yournameorBU="yournameorBU"`
 
 `docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
