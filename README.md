@@ -8,9 +8,9 @@ Table of Contents
 2. [Install terraform locally](#install-terraform-locally)
 3. [Automatic provisioning](#automatic-provisioning)
 4. [Manual stepped provisioning](#manual-stepped-provisioning)
-   * [ Run Azure cli container and  copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
-   * [Clone this repo in the azure-cli-python container and install kubectl](#clone-this-repo-in-the-azure-cli-python-container-and-install-kubectl)
-   * [Fill in the variables.tf](#fill-in-the-variables-file)
+   * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
+   * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
+   * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
    * [Terraform for aks](#terraform-for-aks)
    * [kube_config](#kube_config)
    * [Sanity](#sanity)
@@ -70,10 +70,13 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 `docker run -dti --name=azurecli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp ~/.ssh/id_rsa azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
 
-#### Clone this repo in the azure-cli-python container and install kubectl
+#### Clone this repo in the azure-cli-python container
 `git clone https://github.com/dwaiba/aks-terraform`
 
 `curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;`
+
+Optionally, you can also install kubectl locally. This repo installs kubectl in the azure-cli-python container.
+
 
 `chmod +x ./kubectl;`
 
@@ -81,7 +84,7 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 `mv /id_rsa.pub /aks-terraform;`
 
-#### Fill in the variables file
+#### Fill in the variables file with default values
 
 #### Terraform for aks
 `mv ~/terraform aks-terraform/`
@@ -94,7 +97,9 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 #### kube_config
 `echo "$(terraform output kube_config)" -- ~/.kube/azurek8s`
-Also one can echo and copy content to local kubectl config
+
+Also one can echo and copy content to local kubectl config.
+
 
 `export KUBECONFIG=~/.kube/azurek8s`
 
