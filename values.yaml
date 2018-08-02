@@ -20,6 +20,7 @@ Master:
   Cpu: "1"
   Memory: "3500Mi"
   JavaOpts: "-Xms3500m -Xmx3500m"
+ServicePort: 80
 Agent:
   Enabled: false
 Persistence:
