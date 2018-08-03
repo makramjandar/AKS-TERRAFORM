@@ -44,7 +44,7 @@ resource "azurerm_container_registry" "acrtest" {
   location            = "${azurerm_resource_group.k8s.location}"
   resource_group_name = "${azurerm_resource_group.k8s.name}"
   admin_enabled       = true
-  sku                 = "Classic"
+  sku                 = "Premium"
   storage_account_id  = "${azurerm_storage_account.acrstorageacc.id}"
 }
 
