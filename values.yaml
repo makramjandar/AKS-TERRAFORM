@@ -20,8 +20,6 @@ Master:
   Cpu: "1"
   Memory: "3500Mi"
   JavaOpts: "-Xms3500m -Xmx3500m"
-  jenkinsOpts:
-  servicePort: 80
 Agent:
   Enabled: false
 Persistence:
