@@ -49,22 +49,25 @@ Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** 
 
 `docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
 
-Terraform will now prompt for the 5 variables as below in sequence:
+Terraform will now prompt for the 6 variables as below in sequence:
 
 * resource_group_name
 * client_id
 * client_secret
 * cluster_name
 * dns_prefix
+* azure_container_registry_name
 
-Values and conventions for the 5 variables are as follows : 
+Values and conventions for the 6 variables are as follows : 
 
 * resource_group_name as "--org--_aks_--yournameorBU--"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as creted in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
+* azure_container_registry_name as "alphanumeric"
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
+> Only alpha numeric characters only are allowed in azure_container_registry_name.
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
