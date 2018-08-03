@@ -88,12 +88,12 @@ resource "null_resource" "provision" {
   }
 
   /**
-                        provisioner "local-exec" {
-                          command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                        } 
-                      **/
+                          provisioner "local-exec" {
+                            command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                          } 
+                        **/
   provisioner "local-exec" {
-    command = "helm init"
+    command = "helm init --upgrade"
   }
 
   provisioner "local-exec" {
@@ -115,10 +115,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                  provisioner "local-exec" {
-                    command = "kubectl create -f azure-load-balancer.yaml"
-                  }
-          **/
+                    provisioner "local-exec" {
+                      command = "kubectl create -f azure-load-balancer.yaml"
+                    }
+            **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -137,6 +137,14 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
+  }
+
+  provisioner "local-exec" {
+    command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.14.1-linux-amd64.tar.gz | tar xvz"
+  }
+
+  provisioner "local-exec" {
+    command = "cp linux-amd64/draft /usr/local/bin/draft"
   }
 }
 
@@ -202,4 +210,3 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
-
