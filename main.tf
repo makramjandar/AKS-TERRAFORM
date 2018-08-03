@@ -31,12 +31,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
-resource "azurerm_resource_group" "test" {
-  name                = "${var.resource_storage_acct}"
-  resource_group_name = "${azurerm_resource_group.k8s.name}"
-  location            = "${azurerm_resource_group.k8s.location}"
-}
-
 resource "azurerm_storage_account" "acrstorageacc" {
   name                     = "${var.resource_storage_acct}"
   resource_group_name      = "${azurerm_resource_group.k8s.name}"
@@ -46,7 +40,7 @@ resource "azurerm_storage_account" "acrstorageacc" {
 }
 
 resource "azurerm_container_registry" "acrtest" {
-  name                = "${var.cluster_name}"
+  name                = "${var.azure_container_registry_name}"
   location            = "${azurerm_resource_group.k8s.location}"
   resource_group_name = "${azurerm_resource_group.k8s.name}"
   admin_enabled       = true
@@ -88,10 +82,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                          provisioner "local-exec" {
-                            command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                          } 
-                        **/
+                            provisioner "local-exec" {
+                              command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                            } 
+                          **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -115,10 +109,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                    provisioner "local-exec" {
-                      command = "kubectl create -f azure-load-balancer.yaml"
-                    }
-            **/
+                      provisioner "local-exec" {
+                        command = "kubectl create -f azure-load-balancer.yaml"
+                      }
+              **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -210,3 +204,4 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
+
