@@ -31,7 +31,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 #### All in one with docker azure-cli-python
 Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
-P.S: terraform locally installed has binary in `/usr/local/bin`
+>**Terraform locally installed has binary in `/usr/local/bin`**
 
 `wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`
 
