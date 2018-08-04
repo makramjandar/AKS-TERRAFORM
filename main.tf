@@ -146,7 +146,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "draft config set ${azurerm_container_registry.acrtest.name}.azurecr.io"
+    command = "draft config set registry ${azurerm_container_registry.acrtest.name}.azurecr.io"
   }
 }
 
