@@ -67,7 +67,9 @@ Values and conventions for the 6 variables are as follows :
 * dns_prefix as "--org--aks--yournameorBU--"
 * azure_container_registry_name as "alphanumeric"
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
+
 > Only alpha numeric characters only are allowed in azure_container_registry_name.
+
 >Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. Azure Container Registry sku should be **Classic** or **Premium** according to storage account. 
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
