@@ -33,7 +33,39 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 >**Terraform locally installed has binary in `/usr/local/bin`**
 
-`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`
+**`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`**
+
+Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
+
+`docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
+
+Terraform will now prompt for the 6 variables as below in sequence:
+
+* resource_group_name
+* client_id
+* client_secret
+* cluster_name
+* dns_prefix
+* azure_container_registry_name
+
+Values and conventions for the 6 variables are as follows : 
+
+* resource_group_name as "--org--_aks_--yournameorBU--"
+* client_id which is the sp client Id
+* client_secret which is the secret for the above as creted in pre-req
+* cluster_name as "--org--_aks_--yournameorBU--"
+* dns_prefix as "--org--aks--yournameorBU--"
+* azure_container_registry_name as "alphanumeric"
+> The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
+
+> Only alpha numeric characters only are allowed in azure_container_registry_name.
+
+>Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. Azure Container Registry sku should be **Classic** or **Premium** according to storage account. 
+  
+After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
+
+`printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
+
 
 #### Semi-auto with docker azure-cli-python
 Please destroy cluster as such :
