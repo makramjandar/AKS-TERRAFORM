@@ -33,11 +33,9 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 >**Terraform locally installed has binary in `/usr/local/bin`**
 
+Create new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
+
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`**
-
-Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
-
-`docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
 
 Terraform will now prompt for the 6 variables as below in sequence:
 
