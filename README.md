@@ -39,21 +39,21 @@ Create new cluster - Please note **terraform** binary and your **id_rsa.pub** sh
 
 Terraform will now prompt for the 6 variables as below in sequence:
 
-* resource_group_name
+* azure_container_registry_name 
 * client_id
 * client_secret
 * cluster_name
 * dns_prefix
-* azure_container_registry_name
+* resource_group_name
 
 Values and conventions for the 6 variables are as follows : 
-
-* resource_group_name as "--org--_aks_--yournameorBU--"
+* azure_container_registry_name as "alphanumeric"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as creted in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
-* azure_container_registry_name as "alphanumeric"
+* resource_group_name as "--org--_aks_--yournameorBU--"
+
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
 > Only alpha numeric characters only are allowed in azure_container_registry_name.
@@ -63,6 +63,8 @@ Values and conventions for the 6 variables are as follows :
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
 `printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
+
+One can also use draft with the Container Registry and use helm to install any chart
 
 
 #### Semi-auto with docker azure-cli-python
