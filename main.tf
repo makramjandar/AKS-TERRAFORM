@@ -30,7 +30,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_secret = "${var.client_secret}"
   }
 }
-
+/**
 resource "azurerm_storage_account" "acrstorageacc" {
   name                     = "${var.resource_storage_acct}"
   resource_group_name      = "${azurerm_resource_group.k8s.name}"
@@ -38,14 +38,14 @@ resource "azurerm_storage_account" "acrstorageacc" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 }
-
+**/
 resource "azurerm_container_registry" "acrtest" {
   name                = "${var.azure_container_registry_name}"
   location            = "${azurerm_resource_group.k8s.location}"
   resource_group_name = "${azurerm_resource_group.k8s.name}"
   admin_enabled       = true
-  sku                 = "Classic"
-  storage_account_id  = "${azurerm_storage_account.acrstorageacc.id}"
+  sku                 = "Premium"
+  /** storage_account_id  = "${azurerm_storage_account.acrstorageacc.id}" **/
 }
 
 resource "null_resource" "provision" {
