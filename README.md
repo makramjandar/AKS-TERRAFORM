@@ -71,7 +71,7 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 One can also use draft with the Container Registry and use helm to install any chart as follows:
 
-<br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="400" height="200" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="400" height="200" />
+<br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="450" height="225" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="450" height="225" />
 
 #### KUBECONFIG
 `echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
