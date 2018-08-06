@@ -132,7 +132,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.6 --wait"
+    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.18 --wait"
   }
 
   provisioner "local-exec" {
