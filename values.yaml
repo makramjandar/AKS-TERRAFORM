@@ -15,7 +15,7 @@ Master:
     - startup-trigger-plugin:2.9.3
     - timestamper:1.8.10
     - analysis-core:1.95
-    - dependency-check-jenkins-plugin:3.0.2
+    - dependency-check-jenkins-plugin:3.3.1
     - maven-plugin:3.1.2
     - pipeline-github-lib:1.0
     - ghprb:1.42.0
