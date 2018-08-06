@@ -33,7 +33,7 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 >**Terraform locally installed has binary in `/usr/local/bin`**
 
-Create new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
+Create new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`**
 
@@ -58,14 +58,13 @@ Values and conventions for the 6 variables are as follows :
 
 > Only alpha numeric characters only are allowed in azure_container_registry_name.
 
->Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. `storage_account_id` can only be specified for a **Classic (unmanaged)** Sku of Azure Container Registry sku. This does not support web hooks.
+>Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. `storage_account_id` can only be specified for a **Classic (unmanaged)** Sku of Azure Container Registry. This does not support web hooks. Default is **Premium** Sku of Azure Container Registry.
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
 `printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
 
-One can also use draft with the Container Registry and use helm to install any chart
-
+One can also use draft with the Container Registry and use helm to install any chart.
 
 #### Semi-auto with docker azure-cli-python
 Please destroy cluster as such :
@@ -77,36 +76,38 @@ Please destroy cluster as such :
 
 `docker rm azure-cli-python-$yournameorBU`
 
-Recreate new cluster - Please note **terraform** binary and your **id_rsa.pub** should be present in directory
+Recreate new cluster - Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
 `docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
 
 Terraform will now prompt for the 6 variables as below in sequence:
 
-* resource_group_name
+* azure_container_registry_name 
 * client_id
 * client_secret
 * cluster_name
 * dns_prefix
-* azure_container_registry_name
+* resource_group_name
 
 Values and conventions for the 6 variables are as follows : 
-
-* resource_group_name as "--org--_aks_--yournameorBU--"
+* azure_container_registry_name as "alphanumeric"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as creted in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
-* azure_container_registry_name as "alphanumeric"
+* resource_group_name as "--org--_aks_--yournameorBU--"
+
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
 > Only alpha numeric characters only are allowed in azure_container_registry_name.
 
->Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. Azure Container Registry sku should be **Classic** or **Premium** according to storage account. 
+>Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. `storage_account_id` can only be specified for a **Classic (unmanaged)** Sku of Azure Container Registry. This does not support web hooks. Default is **Premium** Sku of Azure Container Registry.
   
 After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
 
 `printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
+
+One can also use draft with the Container Registry and use helm to install any chart.
 
 
 ### Manual stepped provisioning
