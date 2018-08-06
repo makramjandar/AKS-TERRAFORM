@@ -50,7 +50,7 @@ Terraform will now prompt for the 6 variables as below in sequence:
 Values and conventions for the 6 variables are as follows : 
 * azure_container_registry_name as "alphanumeric"
 * client_id which is the sp client Id
-* client_secret which is the secret for the above as creted in pre-req
+* client_secret which is the secret for the above as created in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
 * resource_group_name as "--org--_aks_--yournameorBU--"
@@ -81,21 +81,6 @@ Also one can echo and copy content to local kubectl config.
 `kubectl proxy`
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
-
-#### KUBECONFIG
-`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
-
-Also one can echo and copy content to local kubectl config.
-
-
-`export KUBECONFIG=~/.kube/azurek8s`
-
-#### Sanity
-`kubectl get nodes`
-
-`kubectl proxy`
-
-Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
 
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
