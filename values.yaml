@@ -34,7 +34,8 @@ Master:
   ServicePort: 80
   JavaOpts: "-Xms3500m -Xmx3500m"
 Agent:
-  Enabled: false
+  Enabled: true
+  NodeSelector: {beta.kubernetes.io/os: linux}
 Persistence:
   Size: 20Gi
 rbac:
