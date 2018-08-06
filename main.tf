@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                    provisioner "local-exec" {
-                                      command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                    } 
-                                  **/
+                                      provisioner "local-exec" {
+                                        command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                      } 
+                                    **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                              provisioner "local-exec" {
-                                command = "kubectl create -f azure-load-balancer.yaml"
-                              }
-                      **/
+                                provisioner "local-exec" {
+                                  command = "kubectl create -f azure-load-balancer.yaml"
+                                }
+                        **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -134,6 +134,11 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.18 --wait"
+
+    timeouts {
+      create = "12m"
+      delete = "12m"
+    }
   }
 
   provisioner "local-exec" {
