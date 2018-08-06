@@ -19,7 +19,7 @@ Master:
     - maven-plugin:3.1.2
     - pipeline-github-lib:1.0
     - ghprb:1.39.0
-    - blueocean:1.1.7
+    - blueocean:1.7.0
  NodeSelector: {beta.kubernetes.io/os: linux}
  ScriptApproval:
    - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
