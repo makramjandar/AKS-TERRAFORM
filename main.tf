@@ -157,7 +157,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "helm install brigade/brigade -- name brigade-server"
+    command = "helm install brigade/brigade --name brigade-server"
   }
 }
 
