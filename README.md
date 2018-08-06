@@ -1,4 +1,4 @@
-<img src="https://blog.headforcloud.com/content/images/2017/10/Capture.PNG" width="250" height="90" /> <img src="https://dd3hq3hnmbuiz.cloudfront.net/images/Terraform-Background.jpg" width="180" height="90" /> <img src="https://carlos.mendible.com/assets/img/posts/aks.png" width="160" height="90" />   <img src="https://azure.microsoft.com/svghandler/container-registry/?width=600&height=315" width="150" height="90" /> <img src="http://www.razibinrais.com/wp-content/uploads/2018/07/helm.png" width="90" height="90" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="400" height="200" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="400" height="200" />
+<img src="https://blog.headforcloud.com/content/images/2017/10/Capture.PNG" width="250" height="90" /> <img src="https://dd3hq3hnmbuiz.cloudfront.net/images/Terraform-Background.jpg" width="180" height="90" /> <img src="https://carlos.mendible.com/assets/img/posts/aks.png" width="160" height="90" />   <img src="https://azure.microsoft.com/svghandler/container-registry/?width=600&height=315" width="150" height="90" /> <img src="http://www.razibinrais.com/wp-content/uploads/2018/07/helm.png" width="90" height="90" /> 
   
 Table of Contents (Azure Kubernetes Service with Terraform)
 =================
@@ -69,7 +69,9 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 `printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
 
-One can also use draft with the Container Registry and use helm to install any chart.
+One can also use draft with the Container Registry and use helm to install any chart as follows:
+
+<br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="400" height="200" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="400" height="200" />
 
 #### KUBECONFIG
 `echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
