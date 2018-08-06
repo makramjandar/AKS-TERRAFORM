@@ -30,6 +30,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_secret = "${var.client_secret}"
   }
 }
+
 /**
 resource "azurerm_storage_account" "acrstorageacc" {
   name                     = "${var.resource_storage_acct}"
@@ -45,6 +46,7 @@ resource "azurerm_container_registry" "acrtest" {
   resource_group_name = "${azurerm_resource_group.k8s.name}"
   admin_enabled       = true
   sku                 = "Premium"
+
   /** storage_account_id  = "${azurerm_storage_account.acrstorageacc.id}" **/
 }
 
@@ -82,10 +84,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                              provisioner "local-exec" {
-                                command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                              } 
-                            **/
+                                  provisioner "local-exec" {
+                                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                  } 
+                                **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -109,10 +111,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                        provisioner "local-exec" {
-                          command = "kubectl create -f azure-load-balancer.yaml"
-                        }
-                **/
+                            provisioner "local-exec" {
+                              command = "kubectl create -f azure-load-balancer.yaml"
+                            }
+                    **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
