@@ -9,7 +9,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
       * [kubeconfig](#kubeconfig)
       * [Sanity](#sanity)
-4. [Manual stepped provisioning](#manual-stepped-provisioning)
+4. [License](#license)
+5. [Manual stepped provisioning](#manual-stepped-provisioning)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
@@ -88,6 +89,9 @@ Also one can echo and copy content to local kubectl config.
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
 
+### License
+  * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
+  
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
