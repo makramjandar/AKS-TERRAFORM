@@ -5,13 +5,14 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 2. [Install terraform locally](#install-terraform-locally)
 3. [Automatic provisioning](#automatic-provisioning)
    * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
-   * [Semi-auto with docker azure-cli-python](#semi-auto-with-docker-azure-cli-python)
+      * [KUBECONFIG](#kubeconfig)
+      * [Sanity](#sanity)
 4. [Manual stepped provisioning](#manual-stepped-provisioning)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
    * [Terraform for aks](#terraform-for-aks)
-   * [kube_config](#kube_config)
+   * [KUBECONFIG](#kubeconfig)
    * [Sanity](#sanity)
 
 ### ServicePrincipal and Subscription ID
@@ -66,49 +67,35 @@ After Cluster creation  all you need to do is perform "kubectl get svc" to get u
 
 One can also use draft with the Container Registry and use helm to install any chart.
 
-#### Semi-auto with docker azure-cli-python
-Please destroy cluster as such :
-`export yournameorBU="yournameorBU"`
+#### KUBECONFIG
+`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
 
-`docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && cd /aks-terraform && terraform destroy && bash"`
+Also one can echo and copy content to local kubectl config.
 
-`docker kill azure-cli-python-$yournameorBU`
 
-`docker rm azure-cli-python-$yournameorBU`
+`export KUBECONFIG=~/.kube/azurek8s`
 
-Recreate new cluster - Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
+#### Sanity
+`kubectl get nodes`
 
-`docker run -dti --name=azure-cli-python-$yournameorBU --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python-$yournameorBU:/ && docker cp id_rsa.pub azure-cli-python-$yournameorBU:/ && docker exec -ti azure-cli-python-$yournameorBU bash -c "az login && git clone https://github.com/dwaiba/aks-terraform && cp id_rsa.pub /aks-terraform/ && cp terraform /usr/bin && cd /aks-terraform/ && terraform init && terraform plan -out run.plan && terraform apply "run.plan" && bash"`
+`kubectl proxy`
 
-Terraform will now prompt for the 6 variables as below in sequence:
+Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
 
-* azure_container_registry_name 
-* client_id
-* client_secret
-* cluster_name
-* dns_prefix
-* resource_group_name
+#### KUBECONFIG
+`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
 
-Values and conventions for the 6 variables are as follows : 
-* azure_container_registry_name as "alphanumeric"
-* client_id which is the sp client Id
-* client_secret which is the secret for the above as creted in pre-req
-* cluster_name as "--org--_aks_--yournameorBU--"
-* dns_prefix as "--org--aks--yournameorBU--"
-* resource_group_name as "--org--_aks_--yournameorBU--"
+Also one can echo and copy content to local kubectl config.
 
-> The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
-> Only alpha numeric characters only are allowed in azure_container_registry_name.
+`export KUBECONFIG=~/.kube/azurek8s`
 
->Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. `storage_account_id` can only be specified for a **Classic (unmanaged)** Sku of Azure Container Registry. This does not support web hooks. Default is **Premium** Sku of Azure Container Registry.
-  
-After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
+#### Sanity
+`kubectl get nodes`
 
-`printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
+`kubectl proxy`
 
-One can also use draft with the Container Registry and use helm to install any chart.
-
+Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
 
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
@@ -140,7 +127,7 @@ Optionally, you can also install kubectl locally. This repo installs kubectl in 
 
 `terraform apply "run.plan"`
 
-#### kube_config
+#### KUBECONFIG
 `echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
 
 Also one can echo and copy content to local kubectl config.
