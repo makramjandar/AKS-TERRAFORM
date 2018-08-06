@@ -84,10 +84,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                  provisioner "local-exec" {
-                                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                  } 
-                                **/
+                                    provisioner "local-exec" {
+                                      command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                    } 
+                                  **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -111,10 +111,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                            provisioner "local-exec" {
-                              command = "kubectl create -f azure-load-balancer.yaml"
-                            }
-                    **/
+                              provisioner "local-exec" {
+                                command = "kubectl create -f azure-load-balancer.yaml"
+                              }
+                      **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -149,6 +149,14 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "draft config set registry ${azurerm_container_registry.acrtest.name}.azurecr.io"
+  }
+
+  provisioner "local-exec" {
+    command = "helm repo add brigade https://azure.github.io/brigade"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install brigade/brigade -- name brigade-server"
   }
 }
 
