@@ -44,8 +44,10 @@ variable "admin_username" {
   default = "aksadmin"
 }
 
-variable "agent_count" {
-  default = "3"
+variable "agent_count" {}
+
+variable "azurek8s_sku" {
+  default = "Standard_F2s"
 }
 
 variable "resource_storage_acct" {
