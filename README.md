@@ -14,6 +14,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [Terraform for aks](#terraform-for-aks)
    * [KUBECONFIG](#kubeconfig)
    * [Sanity](#sanity)
+5. Reporting bugs(#reporting-bugs)
+6. Patches and pull requests)(#patches-and-pull-requests)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
@@ -126,3 +128,11 @@ Also one can echo and copy content to local kubectl config.
 `kubectl proxy`
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
+
+### Reporting bugs
+
+Please report bugs  by opening an issue in the [GitHub Issue Tracker](https://github.com/dwaiba/aks-terraform/issues)
+
+### Patches and pull requests
+
+Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
