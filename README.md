@@ -14,8 +14,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [Terraform for aks](#terraform-for-aks)
    * [KUBECONFIG](#kubeconfig)
    * [Sanity](#sanity)
-5. Reporting bugs(#reporting-bugs)
-6. Patches and pull requests)(#patches-and-pull-requests)
+5. [Reporting bugs](#reporting-bugs)
+6. [Patches and pull requests](#patches-and-pull-requests)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
