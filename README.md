@@ -43,8 +43,9 @@ Create new cluster -Please note **docker** should be installed with **terraform*
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`**
 
-Terraform will now prompt for the 6 variables as below in sequence:
+Terraform will now prompt for the 7 variables as below in sequence:
 
+* agent_count 
 * azure_container_registry_name 
 * client_id
 * client_secret
@@ -53,6 +54,7 @@ Terraform will now prompt for the 6 variables as below in sequence:
 * resource_group_name
 
 Values and conventions for the 6 variables are as follows : 
+* agent_count are the number of "agents" - 3 or 5 or 7
 * azure_container_registry_name as "alphanumeric"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as created in pre-req
