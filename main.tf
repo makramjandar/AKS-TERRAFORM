@@ -133,7 +133,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "helm install -n hclaks stable/jenkins -f values.yaml --version 0.16.18 --wait"
+    command = "helm install -n hclaks stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
 
     timeouts {
       create = "12m"
