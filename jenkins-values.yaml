@@ -9,7 +9,6 @@ Master:
     - google-source-plugin:0.3
     - ansicolor:0.5.2
     - custom-tools-plugin:0.5
-    - envinject:2.1.6
     - git-parameter:0.9.3
     - sonar:2.8
     - startup-trigger-plugin:2.9.3
@@ -18,7 +17,6 @@ Master:
     - dependency-check-jenkins-plugin:3.3.1
     - maven-plugin:3.1.2
     - pipeline-github-lib:1.0
-    - ghprb:1.42.0
     - blueocean:1.7.1
   NodeSelector: {beta.kubernetes.io/os: linux}
   ScriptApproval:
