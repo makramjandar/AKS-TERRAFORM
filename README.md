@@ -104,6 +104,11 @@ Attached is the present master Branch graph. (Click to enlarge)
 
   <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/graph.png"/>
   
+Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph. A live example is [here](http://pegacentos.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
+
+![Alt text](./blast-radius.svg)
+<img src="./blast-radius.svg">
+  
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
