@@ -94,6 +94,12 @@ Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/serv
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
   
+### Terraform Graph
+Please generate dot format (Graphviz) terraform configuration graphs for visual representation of the repo.
+`terraform graph | dot -Tsvg > graph.svg`
+Attached is the present master Branch graph
+
+  
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
