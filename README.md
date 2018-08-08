@@ -96,8 +96,10 @@ Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/serv
   
 ### Terraform Graph
 Please generate dot format (Graphviz) terraform configuration graphs for visual representation of the repo.
+
 `terraform graph | dot -Tsvg > graph.svg`
-Attached is the present master Branch graph
+
+Attached is the present master Branch graph. (Click to enlarge)
 
   <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/graph.png"/>
   
