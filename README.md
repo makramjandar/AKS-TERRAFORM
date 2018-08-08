@@ -99,6 +99,7 @@ Please generate dot format (Graphviz) terraform configuration graphs for visual 
 `terraform graph | dot -Tsvg > graph.svg`
 Attached is the present master Branch graph
 
+  <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/graph.png"/>
   
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
