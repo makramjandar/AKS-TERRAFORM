@@ -154,6 +154,10 @@ Also one can echo and copy content to local kubectl config.
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
 
+or if proxied from a server can be online as follows:
+
+`kubectl proxy --address 0.0.0.0 --accept-hosts .* &`
+
 ### Reporting bugs
 
 Please report bugs  by opening an issue in the [GitHub Issue Tracker](https://github.com/dwaiba/aks-terraform/issues)
