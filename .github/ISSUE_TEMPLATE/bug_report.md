@@ -11,7 +11,9 @@ A clear and concise description of what the bug is.
 Steps to reproduce the behavior:
 1. Hit script '...'
 2. Authenticate with Azue cli '....'
+
 3.Put in variables '....'
+
 4. See deployment error
 
 **Expected behavior**
