@@ -106,7 +106,6 @@ Attached is the present master Branch graph. (Click to enlarge)
   
 Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph. A live example is [here](http://pegacentos.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
 
-![Alt text](https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.png)
 <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.png">
   
 ### Manual stepped provisioning
