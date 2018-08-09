@@ -11,15 +11,16 @@ Table of Contents (Azure Kubernetes Service with Terraform)
       * [Sanity](#sanity)
 4. [License](#license)
 5. [Terraform graph](#terraform-graph)
-6. [Manual stepped provisioning](#manual-stepped-provisioning)
+6. [Code of conduct](#code-of-conduct)
+7. [Manual stepped provisioning](#manual-stepped-provisioning)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
    * [Terraform for aks](#terraform-for-aks)
    * [kubeconfig](#kubeconfig)
    * [Sanity](#sanity)
-7. [Reporting bugs](#reporting-bugs)
-8. [Patches and pull requests](#patches-and-pull-requests)
+8. [Reporting bugs](#reporting-bugs)
+9. [Patches and pull requests](#patches-and-pull-requests)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
@@ -94,7 +95,8 @@ Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/serv
 
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
-  
+### Code of Conduct
+  * Please see the [Code of Conduct](https://github.com/dwaiba/aks-terraform/blob/master/CODE_OF_CONDUCT.md)
 ### Terraform Graph
 Please generate dot format (Graphviz) terraform configuration graphs for visual representation of the repo.
 
@@ -159,8 +161,10 @@ or if proxied from a server can be online as follows:
 
 ### Reporting bugs
 
-Please report bugs  by opening an issue in the [GitHub Issue Tracker](https://github.com/dwaiba/aks-terraform/issues)
+Please report bugs  by opening an issue in the [GitHub Issue Tracker](https://github.com/dwaiba/aks-terraform/issues).
+Bugs have auto template defined. Please view it [here](https://github.com/dwaiba/aks-terraform/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
 
 ### Patches and pull requests
 
 Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
+
