@@ -136,8 +136,8 @@ resource "null_resource" "provision" {
     command = "helm install -n hclaks stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
 
     timeouts {
-      create = "12m"
-      delete = "12m"
+      create = "20m"
+      delete = "20m"
     }
   }
 
