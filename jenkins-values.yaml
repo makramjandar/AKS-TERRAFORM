@@ -30,7 +30,7 @@ Master:
   Cpu: "1"
   Memory: "3500Mi"
   ServicePort: 80
-  JavaOpts: "-Xms3500m -Xmx3500m -Dhudson.model.LoadStatistics.decay=0.2 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85"
+  JavaOpts: "-Xms3500m -Xmx3500m"
 Agent:
   Enabled: true
   NodeSelector: {beta.kubernetes.io/os: linux}
