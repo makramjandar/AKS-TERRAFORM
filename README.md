@@ -1,4 +1,6 @@
 <img src="https://camo.githubusercontent.com/deb5e59540f33524f80ca6e781894672b9b152b0/68747470733a2f2f617a757265636f6d63646e2e617a757265656467652e6e65742f6376742d346261316163363334313062623262626539663163326137626564633537383934626265393735343330396439643338306465656463646637383530303437652f696d616765732f7368617265642f736f6369616c2f617a7572652d69636f6e2d323530783235302e706e67" width="50" height="50" /> <img src="https://azurecomcdn.azureedge.net/cvt-c18d17f36d00dc6637f795280fe675826238c2c9ed2c998cfa9460ed4a2f9115/images/page/services/kubernetes-service/scale-and-run.svg" width="100" height="100" /> <img src="https://dd3hq3hnmbuiz.cloudfront.net/images/Terraform-Background.jpg" width="100" height="50" /> <img src="https://carlos.mendible.com/assets/img/posts/aks.png" width="100" height="50" />   <img src="https://azure.microsoft.com/svghandler/container-registry/?width=600&height=315" width="90" height="50" /> <a href="https://helm.sh/"><img src="http://www.razibinrais.com/wp-content/uploads/2018/07/helm.png" width="50" height="50" /></a> <img src="https://ordina-jworks.github.io/img/2018-02-12-Azure-Draft/draft-logo.png" width="110" height="50" /> <a href="https://brigade.sh/"><img src="https://brigade.sh/assets/images/brigade.png" width="110" height="50" /></a>
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors)
   
 Table of Contents (Azure Kubernetes Service with Terraform)
 =================
@@ -168,3 +170,18 @@ Bugs have auto template defined. Please view it [here](https://github.com/dwaiba
 
 Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
 
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars0.githubusercontent.com/u/16762700?v=4" width="100px;"/><br /><sub><b>Dwai Banerjee</b></sub>](https://github.com/dwaiba)<br />[📖](https://github.com/dwaiba/aks-terraform/commits?author=dwaiba "Documentation") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
