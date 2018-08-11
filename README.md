@@ -22,7 +22,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 8. [Reporting bugs](#reporting-bugs)
 9. [Patches and pull requests](#patches-and-pull-requests)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 ### ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
