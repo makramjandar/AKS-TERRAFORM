@@ -21,6 +21,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [Sanity](#sanity)
 8. [Reporting bugs](#reporting-bugs)
 9. [Patches and pull requests](#patches-and-pull-requests)
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 ### ServicePrincipal and Subscription ID
@@ -173,7 +174,7 @@ Patches can be submitted as GitHub pull requests. If using GitHub please make su
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/16762700?v=4" width="100px;"/><br /><sub><b>Dwai Banerjee</b></sub>](https://github.com/dwaiba)<br />(https://github.com/dwaiba/aks-terraform/commits?author=dwaiba ) | [<img src="https://avatars1.githubusercontent.com/u/3009423?v=4" width="100px;"/><br /><sub><b>anishnagaraj</b></sub>](https://github.com/anishnagaraj)<br /> (https://github.com/dwaiba/aks-terraform/commits?author=anishnagaraj) | [<img src="https://avatars1.githubusercontent.com/u/18348296?v=4" width="100px;"/><br /><sub><b>Ranjith</b></sub>](https://github.com/ranparam01)<br /> (https://github.com/dwaiba/aks-terraform/commits?author=ranparam01) | [<img src="https://avatars2.githubusercontent.com/u/13200390?v=4" width="100px;"/><br /><sub><b>cvakumark</b></sub>](https://github.com/cvakumark)<br /> (https://github.com/dwaiba/aks-terraform/commits?author=cvakumark) |
+| [<img src="https://avatars0.githubusercontent.com/u/16762700?v=4" width="100px;"/><br /><sub><b>Dwai Banerjee</b></sub>](https://github.com/dwaiba)<br /> | [<img src="https://avatars1.githubusercontent.com/u/3009423?v=4" width="100px;"/><br /><sub><b>anishnagaraj</b></sub>](https://github.com/anishnagaraj)<br />  | [<img src="https://avatars1.githubusercontent.com/u/18348296?v=4" width="100px;"/><br /><sub><b>Ranjith</b></sub>](https://github.com/ranparam01)<br /> | [<img src="https://avatars2.githubusercontent.com/u/13200390?v=4" width="100px;"/><br /><sub><b>cvakumark</b></sub>](https://github.com/cvakumark)<br /> |
 | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
