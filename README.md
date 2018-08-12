@@ -208,13 +208,13 @@ Bugs have auto template defined. Please view it [here](https://github.com/dwaiba
 Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
 
 ## Contributors
+Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/16762700?v=4" width="100px;"/><br /><sub><b>Dwai Banerjee</b></sub>](https://github.com/dwaiba)<br /> | [<img src="https://avatars1.githubusercontent.com/u/3009423?v=4" width="100px;"/><br /><sub><b>anishnagaraj</b></sub>](https://github.com/anishnagaraj)<br />  | [<img src="https://avatars1.githubusercontent.com/u/18348296?v=4" width="100px;"/><br /><sub><b>Ranjith</b></sub>](https://github.com/ranparam01)<br /> | [<img src="https://avatars2.githubusercontent.com/u/13200390?v=4" width="100px;"/><br /><sub><b>cvakumark</b></sub>](https://github.com/cvakumark)<br /> |
+| [<img src="https://avatars1.githubusercontent.com/u/3009423?v=4" width="100px;"/><br /><sub><b>anishnagaraj</b></sub>](https://github.com/anishnagaraj)<br /> | [<img src="https://avatars1.githubusercontent.com/u/18348296?v=4" width="100px;"/><br /><sub><b>Ranjith</b></sub>](https://github.com/ranparam01)<br />  | [<img src="https://avatars2.githubusercontent.com/u/13200390?v=4" width="100px;"/><br /><sub><b>cvakumark</b></sub>](https://github.com/cvakumark)<br /> | [<img src="https://avatars0.githubusercontent.com/u/16762700?v=4" width="100px;"/><br /><sub><b>Dwai Banerjee</b></sub>](https://github.com/dwaiba)<br /> |
 | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-Thanks goes to these wonderful people :
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
