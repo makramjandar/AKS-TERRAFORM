@@ -180,7 +180,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --timeout 1000 --wait"
+    command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
     timeouts {
       create = "16m"
