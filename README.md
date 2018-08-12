@@ -113,18 +113,20 @@ Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/serv
 Auto Provisioned
 
 #### kube-prometheus-grafana
-Provisioned via master `main.tf local-exe provisoner` of `https://github.com/coreos/prometheus-operator.git` **without RBAC** `global.rbacEnable=false` **without `prometheus-operator`** 
+Provisioned via master `main.tf local-exe provisioner` of `https://github.com/coreos/prometheus-operator.git` **without RBAC** `global.rbacEnable=false` **without `prometheus-operator`** 
 
 
 Dashboard available post port forward via:
 
-`kubectl get pods --namespace monitoring
+`
+kubectl get pods --namespace monitoring
 
 
 kubectl get pods kube-prometheus-grafana-6f8554f575-bln7x --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}' --namespace monitoring
 
 
 kubectl port-forward kube-prometheus-grafana-6f8554f575-bln7x  3000:3000 --namespace monitoring & 
+
 `
 
 ### License
