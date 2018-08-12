@@ -61,6 +61,8 @@ Terraform will now prompt for the 7 variables as below in sequence:
 * client_secret
 * cluster_name
 * dns_prefix
+* kube_version
+* location
 * resource_group_name
 
 Values and conventions for the 6 variables are as follows : 
@@ -70,6 +72,9 @@ Values and conventions for the 6 variables are as follows :
 * client_secret which is the secret for the above as created in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
+* kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is only available in the American regions
+* location of the resource group and is dependant on the version above. - westeurope (10.3.6) or eastus(1.11.1)
+  - Please Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
 * resource_group_name as "--org--_aks_--yournameorBU--"
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
@@ -116,7 +121,7 @@ Attached is the present master Branch graph. (Click to enlarge)
   
 Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph. A live example is [here](http://pegacentos.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
 
-<img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.png">
+<img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.jpg">
   
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
