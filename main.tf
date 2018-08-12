@@ -178,7 +178,7 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
   }
-
+/**
   provisioner "local-exec" {
     command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
@@ -187,7 +187,7 @@ resource "null_resource" "provision" {
       delete = "16m"
     }
   }
-
+**//
   provisioner "local-exec" {
     command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
   }
