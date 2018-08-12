@@ -28,9 +28,9 @@ Master:
     - "staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedCall java.lang.Object boolean boolean java.lang.String java.lang.Object[]"
     - "staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedGetProperty java.lang.Object boolean boolean java.lang.Object"
   Cpu: "1"
-  Memory: "3500Mi"
+  Memory: "1792Mi"
   ServicePort: 80
-  JavaOpts: "-Xms3500m -Xmx3500m"
+  JavaOpts: "-Xms1792m -Xmx1792m"
 Agent:
   Enabled: true
   NodeSelector: {beta.kubernetes.io/os: linux}
