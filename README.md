@@ -118,16 +118,14 @@ Provisioned via master `main.tf local-exe provisioner` of `https://github.com/co
 
 Dashboard available post port forward via:
 
-`
-kubectl get pods --namespace monitoring
+`kubectl get pods --namespace monitoring`
 
 
-kubectl get pods kube-prometheus-grafana-6f8554f575-bln7x --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}' --namespace monitoring
+`kubectl get pods kube-prometheus-grafana-6f8554f575-bln7x --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}' --namespace monitoring`
 
 
-kubectl port-forward kube-prometheus-grafana-6f8554f575-bln7x  3000:3000 --namespace monitoring & 
+`kubectl port-forward kube-prometheus-grafana-6f8554f575-bln7x  3000:3000 --namespace monitoring & `
 
-`
 
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
@@ -145,9 +143,11 @@ Attached is the present master Branch graph. (Click to enlarge)
 Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph. A live example is [here](http://pegacentos.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
 
 <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.jpg">
+
 ### Todo
+
 * **RBAC**
-* ** Service Mesh **
+* **Service Mesh**
 
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
