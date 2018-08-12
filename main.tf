@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                      provisioner "local-exec" {
-                                        command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                      } 
-                                    **/
+                                        provisioner "local-exec" {
+                                          command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                        } 
+                                      **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                provisioner "local-exec" {
-                                  command = "kubectl create -f azure-load-balancer.yaml"
-                                }
-                        **/
+                                  provisioner "local-exec" {
+                                    command = "kubectl create -f azure-load-balancer.yaml"
+                                  }
+                          **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -163,6 +163,34 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "helm install brigade/brigade --name brigade-server"
+  }
+
+  provisioner "local-exec" {
+    command = "git clone https://github.com/coreos/prometheus-operator.git"
+  }
+
+  provisioner "local-exec" {
+    command = "cd prometheus-operator"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl apply -f bundle.yaml"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --timeout 1000 --wait"
+  }
+
+  provisioner "local-exec" {
+    command = "mkdir -p helm/kube-prometheus/charts"
+  }
+
+  provisioner "local-exec" {
+    command = "helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm exporter-kubernetes"
+  }
+
+  provisioner "local-exec" {
+    command = "helm install helm/kube-prometheus --name kube-prometheus --name kube-prometheus --namespace monitoring --set global.rbacEnable=false"
   }
 }
 
@@ -228,4 +256,3 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
-
