@@ -213,6 +213,7 @@ Bugs have auto template defined. Please view it [here](https://github.com/dwaiba
 Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
 
 ## Contributors
+:sparkles: Recognize all contributors, not just the ones who push code :sparkles:
 Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
