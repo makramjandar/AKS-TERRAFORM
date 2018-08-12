@@ -131,6 +131,12 @@ Dashboard available post port forward via:
 
 `kubectl port-forward kube-prometheus-grafana-6f8554f575-bln7x  3000:3000 --namespace monitoring & `
 
+User/Password for grafana (generally `admin/admin`)
+
+`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.password}" | base64 --d ; echo`
+
+`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.user}" | base64 --d ; echo`
+
 
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
