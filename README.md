@@ -9,7 +9,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
       * [kubeconfig](#kubeconfig)
       * [Sanity](#sanity)
-      * [Tiller Server and Brigade Server](#tiller-server-and-brigade-server)
+      * [Jenkins master](#jenkins-master]
+      * [Tiller Server with Draft and Brigade Server](#tiller-server-with-draft-and-brigade-server)
       * [kube-prometheus-grafana](#kube-prometheus-grafana)
 4. [License](#license)
 5. [Terraform graph](#terraform-graph)
@@ -86,19 +87,11 @@ Values and conventions for the 9 variables are as follows :
 
 >Expected account_tier for storage to be one of **Standard** **Premium** with max **GRS** and **not RAGRS**. `storage_account_id` can only be specified for a **Classic (unmanaged)** Sku of Azure Container Registry. This does not support web hooks. Default is **Premium** Sku of Azure Container Registry.
   
-After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
-
-`printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
-
-One can also use draft with the Container Registry and use helm to install any chart as follows:
-
-<br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="450" height="225" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="450" height="225" />
 
 #### KUBECONFIG
 `echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
 
 Also one can echo and copy content to local kubectl config.
-
 
 `export KUBECONFIG=~/.kube/azurek8s`
 
@@ -108,9 +101,21 @@ Also one can echo and copy content to local kubectl config.
 `kubectl proxy`
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
-#### Tiller Server and Brigade Server
 
-Auto Provisioned
+#### Jenkins Master
+
+After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
+
+`printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
+
+
+#### Tiller Server with Draft and Brigade Server
+
+Auto Provisioned.
+
+One can also use draft with the Container Registry and use helm to install any chart as follows:
+
+<br/> <img src="https://cdn-images-1.medium.com/max/1600/1*Nsme583Ut1TY6IDZjKl27w.png" width="450" height="225" /> <br/> <img src="https://cdn-images-1.medium.com/max/1600/1*kV56ClDz_rrMg5wT4lpQ5Q.png" width="450" height="225" />
 
 #### kube-prometheus-grafana
 Provisioned by master `main.tf local-exe provisioner` via `git clone https://github.com/coreos/prometheus-operator.git` **without RBAC**- `global.rbacEnable=false` and **without `prometheus-operator`** .
