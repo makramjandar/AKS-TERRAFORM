@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                        provisioner "local-exec" {
-                                          command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                        } 
-                                      **/
+                                            provisioner "local-exec" {
+                                              command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                            } 
+                                          **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                  provisioner "local-exec" {
-                                    command = "kubectl create -f azure-load-balancer.yaml"
-                                  }
-                          **/
+                                      provisioner "local-exec" {
+                                        command = "kubectl create -f azure-load-balancer.yaml"
+                                      }
+                              **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -170,6 +170,12 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
+    command = <<EOF
+            sleep 60
+      EOF
+  }
+
+  provisioner "local-exec" {
     command = "cd prometheus-operator"
   }
 
@@ -179,6 +185,11 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --timeout 1000 --wait"
+
+    timeouts {
+      create = "16m"
+      delete = "16m"
+    }
   }
 
   provisioner "local-exec" {
@@ -186,7 +197,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm exporter-kubernetes"
+    command = "helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes"
   }
 
   provisioner "local-exec" {
@@ -256,3 +267,4 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
+
