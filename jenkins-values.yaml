@@ -31,6 +31,23 @@ Master:
   Memory: "1792Mi"
   ServicePort: 80
   JavaOpts: "-Xms1792m -Xmx1792m"
+  HealthProbes: true
+  HealthProbesLivenessTimeout: 90
+  HealthProbesReadinessTimeout: 60
+  HealthProbeLivenessFailureThreshold: 12
+  SlaveListenerPort: 50000
+  DisabledAgentProtocols:
+    - JNLP-connect
+    - JNLP2-connect
+  CSRF:
+    DefaultCrumbIssuer:
+      Enabled: true
+      ProxyCompatability: true
+  CLI: false
+  SlaveListenerServiceType: ClusterIP
+  SlaveListenerServiceAnnotations: {}
+  LoadBalancerSourceRanges:
+  - 0.0.0.0/0
 Agent:
   Enabled: true
   NodeSelector: {beta.kubernetes.io/os: linux}
