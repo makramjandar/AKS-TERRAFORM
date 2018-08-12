@@ -9,18 +9,21 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
       * [kubeconfig](#kubeconfig)
       * [Sanity](#sanity)
+      * [Tiller Server and Brigade Server](#tiller-server-and-brigade-server)
+      * [kube-prometheus-grafana](#kube-prometheus-grafana)
 4. [License](#license)
 5. [Terraform graph](#terraform-graph)
 6. [Code of conduct](#code-of-conduct)
-7. [Manual stepped provisioning](#manual-stepped-provisioning)
+7. [Todo] (#todo)
+8. [Manual stepped provisioning](#manual-stepped-provisioning)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
    * [Terraform for aks](#terraform-for-aks)
    * [kubeconfig](#kubeconfig)
    * [Sanity](#sanity)
-8. [Reporting bugs](#reporting-bugs)
-9. [Patches and pull requests](#patches-and-pull-requests)
+9. [Reporting bugs](#reporting-bugs)
+10. [Patches and pull requests](#patches-and-pull-requests)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
@@ -105,6 +108,24 @@ Also one can echo and copy content to local kubectl config.
 `kubectl proxy`
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
+#### Tiller Server and Brigade Server
+
+Auto Provisioned
+
+#### kube-prometheus-grafana
+Provisioned via master `main.tf local-exe provisoner` of `https://github.com/coreos/prometheus-operator.git` **without RBAC** `global.rbacEnable=false` **without `prometheus-operator`** 
+
+
+Dashboard available post port forward via:
+
+`kubectl get pods --namespace monitoring
+
+
+kubectl get pods kube-prometheus-grafana-6f8554f575-bln7x --template='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}' --namespace monitoring
+
+
+kubectl port-forward kube-prometheus-grafana-6f8554f575-bln7x  3000:3000 --namespace monitoring & 
+`
 
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
@@ -122,7 +143,10 @@ Attached is the present master Branch graph. (Click to enlarge)
 Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph. A live example is [here](http://pegacentos.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
 
 <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.jpg">
-  
+### Todo
+* **RBAC**
+* ** Service Mesh **
+
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
