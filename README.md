@@ -153,6 +153,7 @@ Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live i
 
 * **RBAC**
 * **Service Mesh**
+* **Kashti**
 
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
@@ -214,6 +215,7 @@ Patches can be submitted as GitHub pull requests. If using GitHub please make su
 
 ## Contributors
 :sparkles: Recognize all contributors, not just the ones who push code :sparkles:
+
 Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
