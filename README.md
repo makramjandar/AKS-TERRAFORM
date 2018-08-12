@@ -9,7 +9,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [All in one with docker azure-cli-python](#all-in-one-with-docker-azure-cli-python)
       * [kubeconfig](#kubeconfig)
       * [Sanity](#sanity)
-      * [Jenkins master](#jenkins-master]
+      * [Jenkins master](#jenkins-master)
       * [Tiller Server with Draft and Brigade Server](#tiller-server-with-draft-and-brigade-server)
       * [kube-prometheus-grafana](#kube-prometheus-grafana)
 4. [License](#license)
