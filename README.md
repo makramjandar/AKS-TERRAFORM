@@ -55,7 +55,7 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 Create new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
-**`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster && ./create_cluster.sh`**
+**`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
 Terraform will now prompt for the 9 variables as below in sequence:
 
