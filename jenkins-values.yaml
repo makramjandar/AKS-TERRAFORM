@@ -27,10 +27,8 @@ Master:
       ProxyCompatability: true                                                                                                                        
   CLI: false                                                                                                                                          
   SlaveListenerServiceType: ClusterIP                                                                                                                 
-  SlaveListenerServiceAnnotations: {}                                                                                                                 
-  LoadBalancerSourceRanges:                                                                                                                           
-  - 0.0.0.0/0                            
-    InstallPlugins:                                                                                                                                     
+  SlaveListenerServiceAnnotations: {}                                                                                                                                          
+  InstallPlugins:                                                                                                                                     
     - kubernetes:1.12.3                                                                                                                               
     - workflow-aggregator:2.5                                                                                                                         
     - workflow-job:2.24                                                                                                                               
@@ -61,12 +59,7 @@ Master:
   NodeSelector: {}                                                                                                                                    
   Tolerations: {}                                                                                                                                     
   PodAnnotations: {}                                                                                                                                  
-                                                                                                                                                      
-  Ingress:                                                                                                                                            
-   # ApiVersion: extensions/v1beta1                                                                                                                    
-    Annotations:                                                                                                                                      
-                                                                                                                                                      
-    TLS:                                                                                                                                              
+                                                                                                                                                                                                                                                                                                   
                                                                                                                                                       
 Agent:                                                                                                                                                
   Enabled: true                                                                                                                                       
