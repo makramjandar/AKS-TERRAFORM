@@ -2,14 +2,11 @@
 variable "resource_group_name" {
   default = "hclaks"
 }
-**/
-variable "resource_group_name" {}
 
 variable "location" {
   default = "westeurope"
 }
 
-/**
 variable "client_id" {
   default     = ""
 }
@@ -18,6 +15,9 @@ variable "client_secret" {
   default     = ""
 }
 **/
+variable "resource_group_name" {}
+variable "kube_version" {}
+variable "location" {}
 variable "client_id" {}
 
 variable "client_secret" {}
