@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                  provisioner "local-exec" {
-                                                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                  } 
-                                                **/
+                                                    provisioner "local-exec" {
+                                                      command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                    } 
+                                                  **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                            provisioner "local-exec" {
-                                              command = "kubectl create -f azure-load-balancer.yaml"
-                                            }
-                                    **/
+                                              provisioner "local-exec" {
+                                                command = "kubectl create -f azure-load-balancer.yaml"
+                                              }
+                                      **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -132,12 +132,24 @@ resource "null_resource" "provision" {
     command = "helm install azure-samples/aks-helloworld"
   }
 
-  provisioner "local-exec" {
-    command = "helm install -n hclaks stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
+  resource "install_jenkins" "if-ya" {
+    count = "${var.helm_install_jenkins == true ? 1 : 0}"
 
-    timeouts {
-      create = "20m"
-      delete = "20m"
+    provisioner "local-exec" {
+      command = "helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
+
+      timeouts {
+        create = "20m"
+        delete = "20m"
+      }
+    }
+  }
+
+  resource "install_jenkins" "else-nah" {
+    count = "${var.helm_install_jenkins  == false ? 1 : 0}"
+
+    provisioner "local-exec" {
+      command = "echo ${var.helm_install_jenkins}"
     }
   }
 
@@ -180,15 +192,15 @@ resource "null_resource" "provision" {
   }
 
   /**
-      provisioner "local-exec" {
-        command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
+        provisioner "local-exec" {
+          command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
-        timeouts {
-          create = "16m"
-          delete = "16m"
+          timeouts {
+            create = "16m"
+            delete = "16m"
+          }
         }
-      }
-    **/
+      **/
   provisioner "local-exec" {
     command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
   }
@@ -202,6 +214,7 @@ resource "null_resource" "provision" {
             sleep 30
       EOF
   }
+
   provisioner "local-exec" {
     command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
   }
@@ -269,3 +282,4 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
+
