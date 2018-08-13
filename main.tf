@@ -51,7 +51,7 @@ resource "azurerm_container_registry" "acrtest" {
   /** storage_account_id  = "${azurerm_storage_account.acrstorageacc.id}" **/
 }
 
-resource "null_resource" "provision1" {
+resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
   }
@@ -85,10 +85,10 @@ resource "null_resource" "provision1" {
   }
 
   /**
-                                                          provisioner "local-exec" {
-                                                            command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                          } 
-                                                        **/
+                                                                provisioner "local-exec" {
+                                                                  command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                                } 
+                                                              **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -104,96 +104,89 @@ resource "null_resource" "provision1" {
   }
 }
 
-resource "null_resource" "if-ya" {
-  count = "${var.helm_install_jenkins == true ? 1 : 0}"
+provisioner "local-exec" {
+  count   = "${var.helm_install_jenkins == true ? 1 : 0}"
+  command = "helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
 
-  provisioner "local-exec" {
-    command = "helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
-
-    timeouts {
-      create = "20m"
-      delete = "20m"
-    }
+  timeouts {
+    create = "20m"
+    delete = "20m"
   }
 }
 
-resource "null_resource" "else-nah" {
-  count = "${var.helm_install_jenkins  == false ? 1 : 0}"
-
-  provisioner "local-exec" {
-    command = "echo ${var.helm_install_jenkins}"
-  }
+provisioner "local-exec" {
+  count   = "${var.helm_install_jenkins  == false ? 1 : 0}"
+  command = "echo ${var.helm_install_jenkins}"
 }
 
-resource "null_resource" "provision2" {
-  provisioner "local-exec" {
-    command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
-  }
+provisioner "local-exec" {
+  command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
+}
 
-  provisioner "local-exec" {
-    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${local.username}\""
-  }
+provisioner "local-exec" {
+  command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=\"${local.username}\""
+}
 
-  /**
+/**
                                                     provisioner "local-exec" {
                                                       command = "kubectl create -f azure-load-balancer.yaml"
                                                     }
                                             **/
-  provisioner "local-exec" {
-    command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
-  }
+provisioner "local-exec" {
+  command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
+}
 
-  provisioner "local-exec" {
-    command = "helm repo update"
-  }
+provisioner "local-exec" {
+  command = "helm repo update"
+}
 
-  provisioner "local-exec" {
-    command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
-  }
+provisioner "local-exec" {
+  command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
+}
 
-  provisioner "local-exec" {
-    command = "helm install azure-samples/aks-helloworld"
-  }
+provisioner "local-exec" {
+  command = "helm install azure-samples/aks-helloworld"
+}
 
-  provisioner "local-exec" {
-    command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.15.0-linux-amd64.tar.gz | tar xvz"
-  }
+provisioner "local-exec" {
+  command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.15.0-linux-amd64.tar.gz | tar xvz"
+}
 
-  provisioner "local-exec" {
-    command = "cp linux-amd64/draft /usr/local/bin/draft"
-  }
+provisioner "local-exec" {
+  command = "cp linux-amd64/draft /usr/local/bin/draft"
+}
 
-  provisioner "local-exec" {
-    command = "draft init"
-  }
+provisioner "local-exec" {
+  command = "draft init"
+}
 
-  provisioner "local-exec" {
-    command = "draft config set registry ${azurerm_container_registry.acrtest.name}.azurecr.io"
-  }
+provisioner "local-exec" {
+  command = "draft config set registry ${azurerm_container_registry.acrtest.name}.azurecr.io"
+}
 
-  provisioner "local-exec" {
-    command = "helm repo add brigade https://azure.github.io/brigade"
-  }
+provisioner "local-exec" {
+  command = "helm repo add brigade https://azure.github.io/brigade"
+}
 
-  provisioner "local-exec" {
-    command = "helm install brigade/brigade --name brigade-server"
-  }
+provisioner "local-exec" {
+  command = "helm install brigade/brigade --name brigade-server"
+}
 
-  provisioner "local-exec" {
-    command = "git clone https://github.com/coreos/prometheus-operator.git"
-  }
+provisioner "local-exec" {
+  command = "git clone https://github.com/coreos/prometheus-operator.git"
+}
 
-  provisioner "local-exec" {
-    command = <<EOF
+provisioner "local-exec" {
+  command = <<EOF
             sleep 30
       EOF
-  }
+}
 
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
-  }
+provisioner "local-exec" {
+  command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
+}
 
-  /**
+/**
               provisioner "local-exec" {
                 command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
@@ -203,23 +196,22 @@ resource "null_resource" "provision2" {
                 }
               }
             **/
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
-  }
+provisioner "local-exec" {
+  command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
+}
 
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes"
-  }
+provisioner "local-exec" {
+  command = "cd prometheus-operator && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes"
+}
 
-  provisioner "local-exec" {
-    command = <<EOF
+provisioner "local-exec" {
+  command = <<EOF
             sleep 30
       EOF
-  }
+}
 
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
-  }
+provisioner "local-exec" {
+  command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
 }
 
 /**
