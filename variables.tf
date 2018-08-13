@@ -16,6 +16,7 @@ variable "client_secret" {
 }
 **/
 variable "resource_group_name" {}
+
 variable "kube_version" {}
 variable "location" {}
 variable "client_id" {}
@@ -26,6 +27,7 @@ variable "cluster_name" {}
 
 variable "dns_prefix" {}
 variable "azure_container_registry_name" {}
+variable "helm_install_jenkins" {}
 
 /**
 variable "cluster_name" {
