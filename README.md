@@ -21,8 +21,6 @@ Table of Contents (Azure Kubernetes Service with Terraform)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
    * [Terraform for aks](#terraform-for-aks)
-   * [kubeconfig](#kubeconfig)
-   * [Sanity](#sanity)
 9. [Reporting bugs](#reporting-bugs)
 10. [Patches and pull requests](#patches-and-pull-requests)
 
@@ -103,6 +101,10 @@ Also one can echo and copy content to local kubectl config.
 `kubectl proxy`
 
 Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`.
+
+or if proxied from a server can be online as follows:
+
+`kubectl proxy --address 0.0.0.0 --accept-hosts .* &`
 
 #### Jenkins Master
 
@@ -193,24 +195,6 @@ Optionally, you can also install kubectl locally. This repo installs kubectl in 
 
 `terraform apply "run.plan"`
 
-#### KUBECONFIG
-`echo "$(terraform output kube_config)" > ~/.kube/azurek8s`
-
-Also one can echo and copy content to local kubectl config.
-
-
-`export KUBECONFIG=~/.kube/azurek8s`
-
-#### Sanity
-`kubectl get nodes`
-
-`kubectl proxy`
-
-Dashboard available at `http://localhost:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/#!/overview?namespace=default`
-
-or if proxied from a server can be online as follows:
-
-`kubectl proxy --address 0.0.0.0 --accept-hosts .* &`
 
 ### Reporting bugs
 
