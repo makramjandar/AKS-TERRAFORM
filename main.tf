@@ -197,7 +197,7 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = <<EOF
             if [ "${var.helm_install_jenkins}" = "true" ]; then
-                helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait
+                helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18
             else
                 echo ${var.helm_install_jenkins}
             fi
