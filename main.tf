@@ -198,7 +198,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --namespace monitoring --set global.rbacEnable=false"
+    command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
   }
 }
 
