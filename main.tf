@@ -54,68 +54,53 @@ resource "azurerm_container_registry" "acrtest" {
 resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
+  }
 
-    provisioner "local-exec" {
-      command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
-    }
+  provisioner "local-exec" {
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
+  }
 
-    provisioner "local-exec" {
-      command = "chmod +x ./kubectl;"
-    }
+  provisioner "local-exec" {
+    command = "chmod +x ./kubectl;"
+  }
 
-    provisioner "local-exec" {
-      command = "mv ./kubectl /usr/local/bin/kubectl;"
-    }
+  provisioner "local-exec" {
+    command = "mv ./kubectl /usr/local/bin/kubectl;"
+  }
 
-    provisioner "local-exec" {
-      command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
-    }
+  provisioner "local-exec" {
+    command = "curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh"
+  }
 
-    provisioner "local-exec" {
-      command = "chmod 700 get_helm.sh"
-    }
+  provisioner "local-exec" {
+    command = "chmod 700 get_helm.sh"
+  }
 
-    provisioner "local-exec" {
-      command = "./get_helm.sh"
-    }
+  provisioner "local-exec" {
+    command = "./get_helm.sh"
+  }
 
-    provisioner "local-exec" {
-      command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
-    }
+  provisioner "local-exec" {
+    command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
+  }
 
-    /**
-                                                                    provisioner "local-exec" {
-                                                                      command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                                    } 
-                                                                  **/
-    provisioner "local-exec" {
-      command = "helm init --upgrade"
-    }
+  /**
+                                                                      provisioner "local-exec" {
+                                                                        command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                                      } 
+                                                                    **/
+  provisioner "local-exec" {
+    command = "helm init --upgrade"
+  }
 
-    provisioner "local-exec" {
-      command = "kubectl create -f helm-rbac.yaml"
-    }
+  provisioner "local-exec" {
+    command = "kubectl create -f helm-rbac.yaml"
+  }
 
-    provisioner "local-exec" {
-      command = <<EOF
+  provisioner "local-exec" {
+    command = <<EOF
             sleep 60
       EOF
-    }
-  }
-
-  provisioner "local-exec" {
-    count   = "${var.helm_install_jenkins == true ? 1 : 0}"
-    command = "helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait"
-
-    timeouts {
-      create = "20m"
-      delete = "20m"
-    }
-  }
-
-  provisioner "local-exec" {
-    count   = "${var.helm_install_jenkins  == false ? 1 : 0}"
-    command = "echo ${var.helm_install_jenkins}"
   }
 
   provisioner "local-exec" {
@@ -127,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                      provisioner "local-exec" {
-                                                        command = "kubectl create -f azure-load-balancer.yaml"
-                                                      }
-                                              **/
+                                                        provisioner "local-exec" {
+                                                          command = "kubectl create -f azure-load-balancer.yaml"
+                                                        }
+                                                **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -186,15 +171,15 @@ resource "null_resource" "provision" {
   }
 
   /**
-                provisioner "local-exec" {
-                  command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
+                  provisioner "local-exec" {
+                    command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
-                  timeouts {
-                    create = "16m"
-                    delete = "16m"
+                    timeouts {
+                      create = "16m"
+                      delete = "16m"
+                    }
                   }
-                }
-              **/
+                **/
   provisioner "local-exec" {
     command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
   }
@@ -207,6 +192,21 @@ resource "null_resource" "provision" {
     command = <<EOF
             sleep 30
       EOF
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+            if [ "${var.helm_install_jenkins}" = "true" ]; then
+                helm install -n ${azurerm_kubernetes_cluster.k8s.name} stable/jenkins -f jenkins-values.yaml --version 0.16.18 --wait
+            else
+                echo ${var.helm_install_jenkins}
+            fi
+      EOF
+
+    timeouts {
+      create = "20m"
+      delete = "20m"
+    }
   }
 
   provisioner "local-exec" {
@@ -276,4 +276,3 @@ resource "azurerm_container_group" "aci-helloworld" {
   }
 }
 **/
-
