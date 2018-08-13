@@ -57,7 +57,7 @@ Create new cluster -Please note **docker** should be installed with **terraform*
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
-Terraform will now prompt for the 9 variables as below in sequence:
+Terraform will now prompt for the 10 variables as below in sequence:
 
 * agent_count 
 * azure_container_registry_name 
@@ -65,17 +65,19 @@ Terraform will now prompt for the 9 variables as below in sequence:
 * client_secret
 * cluster_name
 * dns_prefix
+* helm_install_jenkins
 * kube_version
 * location
 * resource_group_name
 
-Values and conventions for the 9 variables are as follows : 
+Values and conventions for the 10 variables are as follows : 
 * agent_count are the number of "agents" - 3 or 5 or 7
 * azure_container_registry_name as "alphanumeric"
 * client_id which is the sp client Id
 * client_secret which is the secret for the above as created in pre-req
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
+* helm_install_jenkins is either **true** or **false**
 * kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is only available in the American regions
 * location of the resource group and is dependant on the version above. - westeurope (10.3.6) or eastus(1.11.1)
   - Please Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
