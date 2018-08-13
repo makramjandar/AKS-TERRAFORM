@@ -28,7 +28,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
-Have Fun checking a 4x speed AKS creation via asciinema - 5 node cluster with required jenkins plugins, tiller, ingress controllers take around 25 minutes on AKS.
+Have Fun checking a 4x speed AKS creation via asciinema - 3 node cluster with required jenkins plugins, tiller, ingress controllers, brigade, prometheus-grafana, takes around 20 minutes on Azure.
 
 <a href="https://asciinema.org/a/196121?autoplay=1"><img src="https://asciinema.org/a/196121.png" width="836"/></a>
 
