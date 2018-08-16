@@ -77,8 +77,8 @@ Values and conventions for the 10 variables are as follows :
 * cluster_name as "--org--_aks_--yournameorBU--"
 * dns_prefix as "--org--aks--yournameorBU--"
 * helm_install_jenkins is either **true** or **false**
-* kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is only available in the American regions
-* location of the resource group and is dependant on the version above. - westeurope (10.3.6) or eastus(1.11.1)
+* kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions
+* location of the resource group and is dependant on the version above.
   - Please Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
 * resource_group_name as "--org--_aks_--yournameorBU--"
 
