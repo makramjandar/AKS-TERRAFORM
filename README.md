@@ -33,7 +33,6 @@ Have Fun checking a 4x speed AKS creation via asciinema - 3 node cluster with re
 <a href="https://asciinema.org/a/196121?autoplay=1"><img src="https://asciinema.org/a/196121.png" width="836"/></a>
 
 
-
 ### Create ServicePrincipal and Subscription ID
 `docker run -ti docker4x/create-sp-azure aksadmin`
 
@@ -53,7 +52,7 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 >**Terraform locally installed has binary in `/usr/local/bin`**
 
-Create new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
+Create a new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
@@ -110,7 +109,7 @@ or if proxied from a server can be online as follows:
 
 #### Jenkins Master
 
-After Cluster creation  all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the container prompt post creation:
+After Cluster creation, all you need to do is perform "kubectl get svc" to get url for jenkins and obtain jenkins password as follows- preferably from within the azure-cli-python container bash prompt post cluster creation:
 
 `printf $(kubectl get secret --namespace default hclaks-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 -d);echo`
 
