@@ -15,19 +15,41 @@ variable "client_secret" {
   default     = ""
 }
 **/
-variable "resource_group_name" {}
+variable "resource_group_name" {
+  description = "Please input a new Azure Resource group name "
+}
 
-variable "kube_version" {}
-variable "location" {}
-variable "client_id" {}
+variable "kube_version" {
+  description = "Please input the k8s version - 1.10.6 or 1.11.1"
+}
 
-variable "client_secret" {}
+variable "location" {
+  description = "Please input the Azure region for deployment - for e.g: westeurope or eastus "
+}
 
-variable "cluster_name" {}
+variable "client_id" {
+  description = "Please input the Azure Application ID known as client_id"
+}
 
-variable "dns_prefix" {}
-variable "azure_container_registry_name" {}
-variable "helm_install_jenkins" {}
+variable "client_secret" {
+  description = "Please input the Azure client secret for the Azure Application ID known as client_id"
+}
+
+variable "cluster_name" {
+  description = "Please input the k8s cluster name to create"
+}
+
+variable "dns_prefix" {
+  description = "Please input the DNS prefix to create"
+}
+
+variable "azure_container_registry_name" {
+  description = "Please input the ACR name to create in the same Resource Group"
+}
+
+variable "helm_install_jenkins" {
+  description = "Please input whether to install Jenkins by default- true or false"
+}
 
 /**
 variable "cluster_name" {
