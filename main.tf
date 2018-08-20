@@ -223,7 +223,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl patch svc aks-helloworld -p '{\"spec\":{\"type\":\"LoadBalancer\"}}"
+    command = "kubectl patch svc aks-helloworld -p '{\"spec\":{\"type\":\"LoadBalancer\"}}'"
   }
 
   provisioner "local-exec" {
