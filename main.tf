@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                                      provisioner "local-exec" {
-                                                                        command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                                      } 
-                                                                    **/
+                                                                        provisioner "local-exec" {
+                                                                          command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                                        } 
+                                                                      **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                        provisioner "local-exec" {
-                                                          command = "kubectl create -f azure-load-balancer.yaml"
-                                                        }
-                                                **/
+                                                          provisioner "local-exec" {
+                                                            command = "kubectl create -f azure-load-balancer.yaml"
+                                                          }
+                                                  **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/"
   }
@@ -171,15 +171,15 @@ resource "null_resource" "provision" {
   }
 
   /**
-                  provisioner "local-exec" {
-                    command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
+                    provisioner "local-exec" {
+                      command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
 
-                    timeouts {
-                      create = "16m"
-                      delete = "16m"
+                      timeouts {
+                        create = "16m"
+                        delete = "16m"
+                      }
                     }
-                  }
-                **/
+                  **/
   provisioner "local-exec" {
     command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
   }
@@ -211,10 +211,23 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
+
     timeouts {
       create = "20m"
       delete = "20m"
-    }    
+    }
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl patch svc kubernetes-dashboard -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace kube-system"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl patch svc aks-helloworld -p '{\"spec\":{\"type\":\"LoadBalancer\"}}"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl patch svc kube-prometheus-grafana -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace monitoring"
   }
 }
 
