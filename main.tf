@@ -190,7 +190,7 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = <<EOF
-            sleep 30
+            sleep 60
       EOF
   }
 
