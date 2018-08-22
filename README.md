@@ -70,17 +70,57 @@ Terraform will now prompt for the 10 variables as below in sequence:
 * resource_group_name
 
 Values and conventions for the 10 variables are as follows : 
-* agent_count are the number of "agents" - 3 or 5 or 7
-* azure_container_registry_name as "alphanumeric"
-* client_id which is the sp client Id
-* client_secret which is the secret for the above as created in pre-req
-* cluster_name as "--org--_aks_--yournameorBU--"
-* dns_prefix as "--org--aks--yournameorBU--"
-* helm_install_jenkins is either **true** or **false**
-* kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions
-* location of the resource group and is dependant on the version above.
-  - Please Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
-* resource_group_name as "--org--_aks_--yournameorBU--"
+* var.agent_count
+    Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
+
+    Enter a value: `<<agent_count are the number of "agents" - 3 or 5 or 7>>`
+
+* var.azure_container_registry_name
+    Please input the ACR name to create in the same Resource Group
+
+    Enter a value: `<<azure_container_registry_name as "alphanumeric" as "<<org>>aks<<yournameorBU>>">>`
+
+* var.client_id
+    Please input the Azure Application ID known as client_id
+
+    Enter a value: `<<client_id which is the sp client Id>>`
+
+* var.client_secret
+    Please input the Azure client secret for the Azure Application ID known as client_id
+
+    Enter a value: `<<client_secret which is the secret for the above as created in pre-req>>`
+
+* var.cluster_name
+    Please input the k8s cluster name to create
+
+    Enter a value: `<<cluster_name as "<<org>>aks<<yournameorBU>>"`
+
+* var.dns_prefix
+    Please input the DNS prefix to create
+
+    Enter a value: `<<dns_prefix as "<<org>>aks<<yournameorBU>>"`
+
+* var.helm_install_jenkins
+    Please input whether to install Jenkins by defaultis-  either **true** or **false**
+
+    Enter a value: `<<true/false>>`
+
+* var.kube_version
+    Please input the k8s version - 1.10.6 or 1.11.1
+
+    Enter a value: `1.11.1`
+
+* var.location
+    Please input the Azure region for deployment - for e.g: westeurope or eastus 
+
+    Enter a value: `westeurope`
+
+* var.resource_group_name
+    Please input a new Azure Resource group name 
+
+    Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
+
+> kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
