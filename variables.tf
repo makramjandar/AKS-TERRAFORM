@@ -68,7 +68,9 @@ variable "admin_username" {
   default = "aksadmin"
 }
 
-variable "agent_count" {}
+variable "agent_count" {
+  description = "Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes"  
+}
 
 variable "azurek8s_sku" {
   default = "Standard_F2s"
