@@ -71,16 +71,19 @@ Terraform will now prompt for the 10 variables as below in sequence:
 
 Values and conventions for the 10 variables are as follows : 
 * var.agent_count
+    
     Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
 
     Enter a value: `<<agent_count are the number of "agents" - 3 or 5 or 7>>`
 
 * var.azure_container_registry_name
+    
     Please input the ACR name to create in the same Resource Group
 
     Enter a value: `<<azure_container_registry_name as "alphanumeric" as "<<org>>aks<<yournameorBU>>">>`
 
 * var.client_id
+    
     Please input the Azure Application ID known as client_id
 
     Enter a value: `<<client_id which is the sp client Id>>`
@@ -91,31 +94,37 @@ Values and conventions for the 10 variables are as follows :
     Enter a value: `<<client_secret which is the secret for the above as created in pre-req>>`
 
 * var.cluster_name
+    
     Please input the k8s cluster name to create
 
     Enter a value: `<<cluster_name as "<<org>>aks<<yournameorBU>>"`
 
 * var.dns_prefix
+    
     Please input the DNS prefix to create
 
     Enter a value: `<<dns_prefix as "<<org>>aks<<yournameorBU>>"`
 
 * var.helm_install_jenkins
+    
     Please input whether to install Jenkins by defaultis-  either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
 * var.kube_version
+    
     Please input the k8s version - 1.10.6 or 1.11.1
 
     Enter a value: `1.11.1`
 
 * var.location
+    
     Please input the Azure region for deployment - for e.g: westeurope or eastus 
 
     Enter a value: `westeurope`
 
 * var.resource_group_name
+    
     Please input a new Azure Resource group name 
 
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
