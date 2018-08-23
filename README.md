@@ -48,9 +48,11 @@ Have Fun checking a 4x speed AKS creation via asciinema - 3 node cluster with re
 `wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -O temp.zip; unzip temp.zip; rm temp.zip ;sudo cp terraform /usr/local/bin`
 ### Automatic provisioning 
 #### All in one with docker azure-cli-python
-Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
+Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following. 
 
->**Terraform locally installed has binary in `/usr/local/bin`**
+>**Terraform locally installed has binary in non-root `/usr/local/bin`**
+
+>Docker usage in deploying is only for  the az-cli-python container usage without installing locally.
 
 Create a new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
@@ -58,78 +60,78 @@ Create a new cluster -Please note **docker** should be installed with **terrafor
 
 Terraform will now prompt for the 10 variables as below in sequence:
 
-* agent_count 
-* azure_container_registry_name 
-* client_id
-* client_secret
-* cluster_name
-* dns_prefix
-* helm_install_jenkins
-* kube_version
-* location
-* resource_group_name
+1. agent_count 
+2. azure_container_registry_name 
+3. client_id
+4. client_secret
+5. cluster_name
+6. dns_prefix
+7. helm_install_jenkins
+8. kube_version
+9. location
+10. resource_group_name
 
-Values and conventions for the 10 variables are as follows : 
-* var.agent_count
+Expected Values and conventions for the 10 variables are as follows : 
+1. var.agent_count
     
     Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
 
     Enter a value: `<<agent_count are the number of "agents" - 3 or 5 or 7>>`
 
-* var.azure_container_registry_name
+2. var.azure_container_registry_name
     
     Please input the ACR name to create in the same Resource Group
 
     Enter a value: `<<azure_container_registry_name as "alphanumeric" as "<<org>>aks<<yournameorBU>>">>`
 
-* var.client_id
+3. var.client_id
     
     Please input the Azure Application ID known as client_id
 
     Enter a value: `<<client_id which is the sp client Id>>`
 
-* var.client_secret
+4. var.client_secret
     Please input the Azure client secret for the Azure Application ID known as client_id
 
     Enter a value: `<<client_secret which is the secret for the above as created in pre-req>>`
 
-* var.cluster_name
+5. var.cluster_name
     
     Please input the k8s cluster name to create
 
     Enter a value: `<<cluster_name as "<<org>>aks<<yournameorBU>>"`
 
-* var.dns_prefix
+6. var.dns_prefix
     
     Please input the DNS prefix to create
 
     Enter a value: `<<dns_prefix as "<<org>>aks<<yournameorBU>>"`
 
-* var.helm_install_jenkins
+7. var.helm_install_jenkins
     
     Please input whether to install Jenkins by defaultis-  either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
-* var.kube_version
+8. var.kube_version
     
     Please input the k8s version - 1.10.6 or 1.11.1
 
     Enter a value: `1.11.1`
 
-* var.location
+9. var.location
     
     Please input the Azure region for deployment - for e.g: westeurope or eastus 
 
     Enter a value: `westeurope`
 
-* var.resource_group_name
+10. var.resource_group_name
     
     Please input a new Azure Resource group name 
 
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
 
-> kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location`
+> kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.2 available in eastus. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
