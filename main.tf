@@ -219,16 +219,14 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl patch svc kubernetes-dashboard -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace kube-system"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl patch svc aks-helloworld -p '{\"spec\":{\"type\":\"LoadBalancer\"}}'"
-  }
-
-  provisioner "local-exec" {
-    command = "kubectl patch svc kube-prometheus-grafana -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace monitoring"
-  }
+    command = <<EOF
+            if [ "${var.patch_svc_lbr_external_ip}" = "true" ]; then
+                kubectl patch svc kubernetes-dashboard -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace kube-system && kubectl patch svc aks-helloworld -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' && kubectl patch svc kube-prometheus-grafana -p '{\"spec\":{\"type\":\"LoadBalancer\"}}' --namespace monitoring
+            else
+                echo ${var.patch_svc_lbr_external_ip}
+            fi
+      EOF
+}
 }
 
 /**

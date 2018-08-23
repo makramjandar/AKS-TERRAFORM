@@ -1,26 +1,10 @@
-/**
-variable "resource_group_name" {
-  default = "hclaks"
-}
 
-variable "location" {
-  default = "westeurope"
-}
-
-variable "client_id" {
-  default     = ""
-}
-
-variable "client_secret" {
-  default     = ""
-}
-**/
 variable "resource_group_name" {
   description = "Please input a new Azure Resource group name "
 }
 
 variable "kube_version" {
-  description = "Please input the k8s version - 1.10.6 or 1.11.1"
+  description = "Please input the k8s version -  1.11.1 is latest in most regions with 1.11.2 in eastus"
 }
 
 variable "location" {
@@ -51,15 +35,10 @@ variable "helm_install_jenkins" {
   description = "Please input whether to install Jenkins by default- true or false"
 }
 
-/**
-variable "cluster_name" {
-  default = "hclaks"
+variable "patch_svc_lbr_external_ip" {
+  description = "Please input to patch grafana, kubernetes-dashboard service for LBR Ingress External IP (expose)- true or false"
 }
 
-variable "dns_prefix" {
-  default = "hclaks"
-}
-**/
 variable "ssh_public_key" {
   default = "/aks-terraform/id_rsa.pub"
 }
@@ -80,7 +59,32 @@ variable "resource_storage_acct" {
   default = "acisa12345"
 }
 
+
+
 /**
+variable "cluster_name" {
+  default = "hclaks"
+}
+
+variable "dns_prefix" {
+  default = "hclaks"
+}
+variable "resource_group_name" {
+  default = "hclaks"
+}
+
+variable "location" {
+  default = "westeurope"
+}
+
+variable "client_id" {
+  default     = ""
+}
+
+variable "client_secret" {
+  default     = ""
+}
+
 variable "resource_aci-dev-share" {
   default = "aci-dev-share"
 }

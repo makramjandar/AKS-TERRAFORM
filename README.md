@@ -58,7 +58,7 @@ Create a new cluster -Please note **docker** should be installed with **terrafor
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
-Terraform will now prompt for the 10 variables as below in sequence:
+Terraform will now prompt for the 11 variables as below in sequence:
 
 1. agent_count 
 2. azure_container_registry_name 
@@ -69,9 +69,10 @@ Terraform will now prompt for the 10 variables as below in sequence:
 7. helm_install_jenkins
 8. kube_version
 9. location
-10. resource_group_name
+10. patch_svc_lbr_external_ip
+11. resource_group_name
 
-Expected Values and conventions for the 10 variables are as follows : 
+Expected Values and conventions for the 11 variables are as follows : 
 1. var.agent_count
     
     Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
@@ -109,13 +110,13 @@ Expected Values and conventions for the 10 variables are as follows :
 
 7. var.helm_install_jenkins
     
-    Please input whether to install Jenkins by defaultis-  either **true** or **false**
+    Please input whether to install Jenkins by default- either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
 8. var.kube_version
     
-    Please input the k8s version - 1.10.6 or 1.11.1
+    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 (eastus)
 
     Enter a value: `1.11.1`
 
@@ -125,11 +126,18 @@ Expected Values and conventions for the 10 variables are as follows :
 
     Enter a value: `westeurope`
 
-10. var.resource_group_name
+10. var.patch_svc_lbr_external_ip
+
+    Please input to patch grafana, kubernetes-dashboard service via LBR Ingress External IP- either **true** or **false**
+
+    Enter a value: `<<true/false>>`
+
+11. var.resource_group_name
     
     Please input a new Azure Resource group name 
 
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
+
 
 > kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.2 available in eastus. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
 
