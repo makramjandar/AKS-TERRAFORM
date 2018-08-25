@@ -3,7 +3,7 @@ variable "cluster_name" {
 }
 
 variable "cluster_location" {
-  description = "Please input the cluster location like us-east1 "
+  description = "Please input the cluster location like us-central1 "
 }
 
 variable "node_count" {

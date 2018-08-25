@@ -1,7 +1,13 @@
+data "google_container_engine_versions" "gce_version_zone" {
+  zone = "${var.cluster_location}-a"
+}
+
 resource "google_container_cluster" "primary" {
   name               = "${var.cluster_name}"
   zone               = "${var.cluster_location}-a"
   initial_node_count = "${var.node_count}"
+  min_master_version = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
+  node_version       = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
 
   additional_zones = [
     "${var.cluster_location}-b",
@@ -41,3 +47,4 @@ output "client_key" {
 output "cluster_ca_certificate" {
   value = "${google_container_cluster.primary.master_auth.0.cluster_ca_certificate}"
 }
+
