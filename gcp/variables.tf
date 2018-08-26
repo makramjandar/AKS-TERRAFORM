@@ -25,3 +25,16 @@ variable "cluster_label" {
 variable "cluster_tag" {
   description = "Please enter the cluster tag "
 }
+
+variable "project" {
+  description = "The Project name"
+  default     = "maximal-furnace-202714"
+}
+
+variable "helm_install_jenkins" {
+  description = "Please input whether to install Jenkins by default- true or false"
+}
+
+variable "patch_svc_lbr_external_ip" {
+  description = "Please input to patch grafana, kubernetes-dashboard service for LBR Ingress External IP (expose)- true or false"
+}
