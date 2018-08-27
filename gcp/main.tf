@@ -5,6 +5,7 @@ data "google_container_engine_versions" "gce_version_zone" {
 resource "google_container_cluster" "primary" {
   name               = "${var.cluster_name}"
   zone               = "${var.cluster_location}-a"
+  machine_type       = "${var.gcp_machine_type}"
   initial_node_count = "${var.node_count}"
   min_master_version = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
   node_version       = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
@@ -22,9 +23,11 @@ resource "google_container_cluster" "primary" {
   node_config {
     oauth_scopes = [
       "https://www.googleapis.com/auth/compute",
-      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/devstorage.read_write",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/projecthosting",
     ]
 
     labels {
@@ -38,6 +41,10 @@ resource "google_container_cluster" "primary" {
 resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "gcloud container clusters get-credentials ${var.cluster_name} --zone ${var.cluster_location}-a --project ${var.project}"
+  }
+
+  provisioner "local-exec" {
+    command = "kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value account)"
   }
 
   provisioner "local-exec" {
@@ -69,7 +76,7 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = <<EOF
                 if [ "${var.helm_install_jenkins}" = "true" ]; then
-                    helm install -n ${var.cluster_name} stable/jenkins -f ../jenkins-values.yaml --version 0.16.18
+                    helm install -n ${var.cluster_name} --set serviceAccountName=${var.cluster_name} -f jenkins-values.yaml --version 0.16.18
                 else
                     echo ${var.helm_install_jenkins}
                 fi
