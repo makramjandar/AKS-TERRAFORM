@@ -34,7 +34,3 @@ variable "project" {
 variable "helm_install_jenkins" {
   description = "Please input whether to install Jenkins by default- true or false"
 }
-
-variable "patch_svc_lbr_external_ip" {
-  description = "Please input to patch grafana, kubernetes-dashboard service for LBR Ingress External IP (expose)- true or false"
-}
