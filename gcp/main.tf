@@ -37,6 +37,12 @@ resource "google_container_cluster" "primary" {
 
 resource "null_resource" "provision" {
   provisioner "local-exec" {
+    command = <<EOF
+            sleep 30
+      EOF
+  }
+
+  provisioner "local-exec" {
     command = "gcloud container clusters get-credentials ${var.cluster_name} --zone ${var.cluster_location}-a --project ${var.project}"
   }
 
