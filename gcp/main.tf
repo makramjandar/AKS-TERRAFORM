@@ -37,12 +37,6 @@ resource "google_container_cluster" "primary" {
 
 resource "null_resource" "provision" {
   provisioner "local-exec" {
-    command = <<EOF
-            sleep 30
-      EOF
-  }
-
-  provisioner "local-exec" {
     command = "gcloud container clusters get-credentials ${var.cluster_name} --zone ${var.cluster_location}-a --project ${var.project}"
   }
 
@@ -68,12 +62,12 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = <<EOF
-            if [ "${var.helm_install_jenkins}" = "true" ]; then
-                helm install -n ${var.cluster_name} stable/jenkins -f ../jenkins-values.yaml --version 0.16.18
-            else
-                echo ${var.helm_install_jenkins}
-            fi
-      EOF
+                if [ "${var.helm_install_jenkins}" = "true" ]; then
+                    helm install -n ${var.cluster_name} stable/jenkins -f ../jenkins-values.yaml --version 0.16.18
+                else
+                    echo ${var.helm_install_jenkins}
+                fi
+        EOF
 
     timeouts {
       create = "20m"
@@ -83,13 +77,15 @@ resource "null_resource" "provision" {
 
   provisioner "local-exec" {
     command = <<EOF
-            if [ "${var.patch_svc_lbr_external_ip}" = "true" ]; then
-                kubectl patch svc kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}' --namespace kube-system
-            else
-                echo ${var.patch_svc_lbr_external_ip}
-            fi
-      EOF
+                if [ "${var.patch_svc_lbr_external_ip}" = "true" ]; then
+                    kubectl patch svc kubernetes-dashboard -p '{"spec":{"type":"LoadBalancer"}}' --namespace kube-system
+                else
+                    echo ${var.patch_svc_lbr_external_ip}
+                fi
+        EOF
   }
+
+  depends_on = ["google_container_cluster.primary"]
 }
 
 # The following outputs allow authentication and connectivity to the GKE Cluster.
