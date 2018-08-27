@@ -5,7 +5,6 @@ data "google_container_engine_versions" "gce_version_zone" {
 resource "google_container_cluster" "primary" {
   name               = "${var.cluster_name}"
   zone               = "${var.cluster_location}-a"
-  machine_type       = "${var.gcp_machine_type}"
   initial_node_count = "${var.node_count}"
   min_master_version = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
   node_version       = "${data.google_container_engine_versions.gce_version_zone.latest_node_version}"
@@ -21,6 +20,8 @@ resource "google_container_cluster" "primary" {
   }
 
   node_config {
+    machine_type = "${var.gcp_machine_type}"
+
     oauth_scopes = [
       "https://www.googleapis.com/auth/compute",
       "https://www.googleapis.com/auth/cloud-platform",
