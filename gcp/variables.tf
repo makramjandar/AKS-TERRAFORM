@@ -31,6 +31,11 @@ variable "project" {
   default     = "maximal-furnace-202714"
 }
 
+variable "gcp_machine_type" {
+  description = "The Machine type"
+  default     = "n1-standard-2"
+}
+
 variable "helm_install_jenkins" {
   description = "Please input whether to install Jenkins by default- true or false"
 }
