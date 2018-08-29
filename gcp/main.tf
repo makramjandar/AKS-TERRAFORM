@@ -87,8 +87,15 @@ resource "null_resource" "provision" {
       create = "20m"
       delete = "20m"
     }
+
+  }
+  provisioner "local-exec" {
+    command = "helm repo add gitlab https://charts.gitlab.io/ && helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/"
   }
 
+  provisioner "local-exec" {
+    command = "helm repo update"
+  }
   depends_on = ["google_container_cluster.primary"]
 }
 
