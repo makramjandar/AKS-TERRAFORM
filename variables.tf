@@ -4,7 +4,7 @@ variable "resource_group_name" {
 }
 
 variable "kube_version" {
-  description = "Please input the k8s version -  1.11.1 is latest in most regions with 1.11.2 in eastus"
+  description = "Please input the k8s version -  1.11.2 is the latest in westeurope or eastus"
 }
 
 variable "location" {
