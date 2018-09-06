@@ -2,7 +2,7 @@
 
 1. [Download and Install Terraform](https://www.terraform.io/downloads.html)
 2. [Download and install google cloud sdk](https://cloud.google.com/sdk/docs/downloads-interactive)
-  * One may install gcloud sdk silently for all users as root with access to GCLOUD_HOME for only speficic user:
+    * One may install gcloud sdk silently for all users as root with access to GCLOUD_HOME for only speficic user:
   
        `export $USERNAME="<<you_user_name>>"`
   
