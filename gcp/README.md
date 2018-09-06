@@ -6,19 +6,13 @@
   
        `export $USERNAME="<<you_user_name>>"`
   
-       `export SHARE_DATA=/data && export CLOUDSDK_INSTALL_DIR=$SHARE_DATA && export CLOUDSDK_CORE_DISABLE_PROMPTS=1`
+       `export SHARE_DATA=/data`
    
-       `su -c "curl https://sdk.cloud.google.com | bash" $USER_NAME`
+       `su -c "export SHARE_DATA=/data && export CLOUDSDK_INSTALL_DIR=$SHARE_DATA export CLOUDSDK_CORE_DISABLE_PROMPTS=1 && curl https://sdk.cloud.google.com | bash" $USER_NAME`
    
        `echo "source $SHARE_DATA/google-cloud-sdk/path.bash.inc" >> /etc/profile.d/gcloud.sh`
    
        `echo "source $SHARE_DATA/google-cloud-sdk/completion.bash.inc" >> /etc/profile.d/gcloud.sh`
-   
-       `chmod +x $SHARE_DATA/google-cloud-sdk/path.bash.inc`
-   
-       `chmod +x $SHARE_DATA/google-cloud-sdk/completion.bash.inc`
-   
-       `chmod +x /etc/profile.d/gcloud.sh`
   
 3. Clone this repository and `cd gcp`
 4. Please create Service Credential of type **JSON** via https://console.cloud.google.com/apis/credentials, download and save as google.json in credentials folder.
