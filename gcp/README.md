@@ -3,13 +3,21 @@
 1. [Download and Install Terraform](https://www.terraform.io/downloads.html)
 2. [Download and install google cloud sdk](https://cloud.google.com/sdk/docs/downloads-interactive)
   * One may install gcloud sdk silently for all users as root with access to GCLOUD_HOME for only speficic user:
-  `export $USERNAME="<<you_user_name>>"`
+  
+   `export $USERNAME="<<you_user_name>>"`
+  
    `export SHARE_DATA=/data && export CLOUDSDK_INSTALL_DIR=$SHARE_DATA && export CLOUDSDK_CORE_DISABLE_PROMPTS=1`
+   
    `su -c "curl https://sdk.cloud.google.com | bash" $USER_NAME`
+   
    `echo "source $SHARE_DATA/google-cloud-sdk/path.bash.inc" >> /etc/profile.d/gcloud.sh`
+   
    `echo "source $SHARE_DATA/google-cloud-sdk/completion.bash.inc" >> /etc/profile.d/gcloud.sh`
+   
    `chmod +x $SHARE_DATA/google-cloud-sdk/path.bash.inc`
+   
    `chmod +x $SHARE_DATA/google-cloud-sdk/completion.bash.inc`
+   
    `chmod +x /etc/profile.d/gcloud.sh`
   
 3. Clone this repository and `cd gcp`
