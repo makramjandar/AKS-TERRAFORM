@@ -97,27 +97,66 @@ resource "null_resource" "provision" {
     command = "helm repo update"
   }
 
-  /**
-    provisioner "local-exec" {
-      command = <<EOF
+  provisioner "local-exec" {
+    command = <<EOF
               if [ "${var.install_prometheus_grafana}" = "true" ]; then
-                  git clone https://github.com/coreos/prometheus-operator.git && cd prometheus-operator && kubectl apply -f bundle.yaml && mkdir -p helm/kube-prometheus/charts && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes  && helm install helm/kube-prometheus --name kube-prometheus --namespace monitoring
+                  git clone https://github.com/coreos/prometheus-operator.git && cd prometheus-operator && kubectl apply -f bundle.yaml && mkdir -p helm/kube-prometheus/charts && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes
               else
                   echo ${var.install_prometheus_grafana}
               fi
         EOF
-    }
+  }
 
-    provisioner "local-exec" {
-      command = <<EOF
+  provisioner "local-exec" {
+    command = <<EOF
+              if [ "${var.install_prometheus_grafana}" = "true" ]; then
+                  sleep 30
+              else
+                  echo ${var.install_prometheus_grafana}
+              fi
+        EOF
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+                if [ "${var.install_prometheus_grafana}" = "true" ]; then
+                    cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --namespace monitoring
+                else
+                    echo ${var.install_prometheus_grafana}
+                fi
+          EOF
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
               if [ "${var.patch_prom_graf_lbr_external}" = "true" ]; then
                   kubectl patch svc kube-prometheus-grafana -p '{"spec":{"type":"LoadBalancer"}}' --namespace monitoring
               else
                   echo ${var.patch_prom_graf_lbr_external}
               fi
         EOF
-    }
-  **/
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+                if [ "${var.install_ibm_mq}" = "true" ]; then
+                    kubectl create namespace ibm && helm install --name mqserver ibm-charts/ibm-mqadvanced-server-dev --set license=accept --namespace ibm
+                else
+                    echo ${var.install_ibm_mq}
+                fi
+          EOF
+  }
+
+  provisioner "local-exec" {
+    command = <<EOF
+              if [ "${var.patch_ibm_mq_lbr_external}" = "true" ]; then
+                  kubectl patch svc mqserver-ibm-mq -p '{"spec":{"type":"LoadBalancer"}}' --namespace ibm
+              else
+                  echo ${var.patch_ibm_mq_lbr_external}
+              fi
+        EOF
+  }
+
   depends_on = ["google_container_cluster.primary"]
 }
 

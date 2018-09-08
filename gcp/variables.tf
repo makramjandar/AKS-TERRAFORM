@@ -40,7 +40,6 @@ variable "helm_install_jenkins" {
   description = "Please input whether to install Jenkins by default- true or false"
 }
 
-/**
 variable "install_prometheus_grafana" {
   description = "Please input whether to install Prometheus Grafana  by default- true or false"
 }
@@ -48,5 +47,11 @@ variable "install_prometheus_grafana" {
 variable "patch_prom_graf_lbr_external" {
   description = "Please input whether to expose Grafana to LBR - true or false"
 }
-**/
 
+variable "install_ibm_mq" {
+  description = "Please input whether to install IBM MQ 9.1  by default- true or false"
+}
+
+variable "patch_ibm_mq_lbr_external" {
+  description = "Please input whether to expose IBM MQ 9.1 Web console and MQ Default listener to External loadbalancer - true or false"
+}
