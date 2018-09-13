@@ -45,7 +45,7 @@ Have Fun checking a 4x speed AKS creation via asciinema - 3 node cluster with re
 `AD ServicePrincipal Tenant ID:   xxxxxx`
 
 ### Install terraform locally
-`wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -O temp.zip; unzip temp.zip; rm temp.zip ;sudo cp terraform /usr/local/bin`
+`wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip -O temp.zip; unzip temp.zip; rm temp.zip ;sudo cp terraform /usr/local/bin`
 ### Automatic provisioning 
 #### All in one with docker azure-cli-python
 Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following. 
