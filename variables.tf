@@ -52,7 +52,7 @@ variable "agent_count" {
 }
 
 variable "azurek8s_sku" {
-  default = "Standard_F2s"
+  default = "Standard_NC6"
 }
 
 variable "resource_storage_acct" {
