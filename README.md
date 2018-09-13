@@ -56,7 +56,7 @@ Please note **docker** should be installed with **terraform** binary and your **
 
 Create a new cluster -Please note **docker** should be installed with **terraform** binary and your **id_rsa.pub** present in directory for running the following.
 
-**`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
+**`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/gpu-aks-terraform/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
 Terraform will now prompt for the 11 variables as below in sequence:
 
@@ -118,13 +118,13 @@ Expected Values and conventions for the 11 variables are as follows :
     
     Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 (eastus)
 
-    Enter a value: `1.11.1`
+    Enter a value: `1.11.2`
 
 9. var.location
     
     Please input the Azure region for deployment - for e.g: westeurope or eastus 
 
-    Enter a value: `westeurope`
+    Enter a value: `eastus`
 
 10. var.patch_svc_lbr_external_ip
 
