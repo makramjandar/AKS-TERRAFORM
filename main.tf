@@ -184,7 +184,7 @@ resource "null_resource" "provision" {
     command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
   }
   provisioner "local-exec" {
-    command = "kubectl apply -f nvidia-device-plugin-ds.yaml"
+    command = "kubectl apply -f nvidia-device-plugin-ds.yaml --namespace kube-system"
   }
 
   /**
