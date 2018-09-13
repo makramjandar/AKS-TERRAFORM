@@ -64,7 +64,7 @@ resource "null_resource" "provision" {
     command = "chmod +x ./kubectl;"
   }
   provisioner "local-exec" {
-    command = "mv ./kubectl /usr/local/bin/kubectl;"
+    command = "sudo mv ./kubectl /usr/local/bin/kubectl;"
   }
 
   provisioner "local-exec" {
