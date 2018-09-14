@@ -211,11 +211,15 @@ User/Password for grafana (generally `admin/admin`)
 `kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.user}" | base64 --d ; echo`
 
 #### Tesla K80 GK210 check and sanity for NC Series via k8s nvidia device plugin in cluster
-`kubectl describe node aks-default-17430891-0|grep nvidia`
+`kubectl get nodes|awk '{print $}'|sed 1d|xargs kubectl describe node|grep nvidia`
 
 `Labels:             accelerator=nvidia
-  kube-system                nvidia-device-plugin-ptjjl                                       0 (0%)        0 (0%)      0 (0%)           0 (0%)
+  kube-system                nvidia-device-plugin-bj4hx                                       0 (0%)        0 (0%)      0 (0%)           0 (0%)
   `
+
+For benchmarking with multi GPUs - min. 8 by default with 1 replica please use the following repo, clone and change number of GPU required to run the benchmarking mpi job.
+https://github.com/kubeflow/mpi-operator
+
 
 ### License
   * Please see the [LICENSE file](https://github.com/dwaiba/aks-terraform/blob/master/LICENSE) for licensing information.
