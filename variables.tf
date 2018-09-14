@@ -1,4 +1,3 @@
-
 variable "resource_group_name" {
   description = "Please input a new Azure Resource group name "
 }
@@ -12,11 +11,11 @@ variable "location" {
 }
 
 variable "client_id" {
-  description = "Please input the Azure Application ID known as client_id"
+  description = "Please input the Azure Application ID known as client_id or AD ServicePrincipal App ID"
 }
 
 variable "client_secret" {
-  description = "Please input the Azure client secret for the Azure Application ID known as client_id"
+  description = "Please input the Azure client secret for the Azure Application ID known as client_id or AD ServicePrincipal App Secret"
 }
 
 variable "cluster_name" {
@@ -48,18 +47,16 @@ variable "admin_username" {
 }
 
 variable "agent_count" {
-  description = "Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes"  
+  description = "Number of Cluster Agent Nodes (GPU Quota is defaulted to only 1 Standard_NC6 per subscription) - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes"
 }
 
 variable "azurek8s_sku" {
-  default = "Standard_F2s"
+  description = "Sku of Cluster node- Recommend -Standard_F4s_v2- for normal and -Standard_NC6- for GPU (GPU Quota is defaulted to only 1 per subscription) Please view Azure Linux VM Sizes at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes"
 }
 
 variable "resource_storage_acct" {
   default = "acisa12345"
 }
-
-
 
 /**
 variable "cluster_name" {

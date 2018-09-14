@@ -63,6 +63,7 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "chmod +x ./kubectl;"
   }
+
   provisioner "local-exec" {
     command = "mv ./kubectl /usr/local/bin/kubectl;"
   }
@@ -84,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                                          provisioner "local-exec" {
-                                                                            command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                                          } 
-                                                                        **/
+                                                                                  provisioner "local-exec" {
+                                                                                    command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                                                  } 
+                                                                                **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -111,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                            provisioner "local-exec" {
-                                                              command = "kubectl create -f azure-load-balancer.yaml"
-                                                            }
-                                                    **/
+                                                                    provisioner "local-exec" {
+                                                                      command = "kubectl create -f azure-load-balancer.yaml"
+                                                                    }
+                                                            **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/ && helm repo add gitlab https://charts.gitlab.io/ && helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/ && helm repo add bitnami https://charts.bitnami.com/bitnami"
   }
@@ -184,16 +185,26 @@ resource "null_resource" "provision" {
     command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
   }
 
-  /**
-                      provisioner "local-exec" {
-                        command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
+  provisioner "local-exec" {
+    command = <<EOF
+            if [ "${var.azurek8s_sku}" = *"NC"* ] && [ "${var.kube_version}" = *"1.11"* ]; then
+                kubectl apply -f nvidia-device-plugin-ds.yaml --namespace kube-system
+            else
+                echo ${var.azurek8s_sku}
+            fi
+      EOF
+  }
 
-                        timeouts {
-                          create = "16m"
-                          delete = "16m"
-                        }
-                      }
-                    **/
+  /**
+                              provisioner "local-exec" {
+                                command = "cd prometheus-operator && helm install helm/prometheus-operator --name prometheus-operator --namespace monitoring --set rbacEnable=false --wait --timeout 1000"
+
+                                timeouts {
+                                  create = "16m"
+                                  delete = "16m"
+                                }
+                              }
+                            **/
   provisioner "local-exec" {
     command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
   }
@@ -225,7 +236,7 @@ resource "null_resource" "provision" {
                 echo ${var.patch_svc_lbr_external_ip}
             fi
       EOF
-}
+  }
 }
 
 /**

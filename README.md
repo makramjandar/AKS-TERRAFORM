@@ -58,26 +58,28 @@ Create a new cluster -Please note **docker** should be installed with **terrafor
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
-Terraform will now prompt for the 11 variables as below in sequence:
+Terraform will now prompt for the 12 variables as below in sequence:
 
 1. agent_count 
-2. azure_container_registry_name 
-3. client_id
-4. client_secret
-5. cluster_name
-6. dns_prefix
-7. helm_install_jenkins
-8. kube_version
-9. location
-10. patch_svc_lbr_external_ip
-11. resource_group_name
+2. azurek8s_sku
+3. azure_container_registry_name 
+4. client_id
+5. client_secret
+6. cluster_name
+7. dns_prefix
+8. helm_install_jenkins
+9. kube_version
+10. location
+11. patch_svc_lbr_external_ip
+12. resource_group_name
 
-Expected Values and conventions for the 11 variables are as follows : 
+Expected Values and conventions for the 12 variables are as follows : 
+
 1. var.agent_count
     
-    Number of Cluster Agent Nodes - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
+    Number of Cluster Agent Nodes (GPU Quota is defaulted to only 1 Standard_NC6 per subscription) - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
 
-    Enter a value: `<<agent_count are the number of "agents" - 3 or 5 or 7>>`
+    Enter a value: `<<agent_count are the number of "agents" - 1 for a GPU (or more if you have quota or 3 or 5 or 7>>`
 
 2. var.azure_container_registry_name
     
@@ -85,54 +87,60 @@ Expected Values and conventions for the 11 variables are as follows :
 
     Enter a value: `<<azure_container_registry_name as "alphanumeric" as "<<org>>aks<<yournameorBU>>">>`
 
-3. var.client_id
+3. var.azurek8s_sku
+
+    Sku of Cluster node- Recommend -Standard_F4s_v2- for normal and -Standard_NC6- for GPU (GPU Quota is defaulted to only 1 per subscription) Please view Azure Linux VM Sizes at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
+
+    Enter a value: `Standard_F4s_v2`
+
+4. var.client_id
     
     Please input the Azure Application ID known as client_id
 
     Enter a value: `<<client_id which is the sp client Id>>`
 
-4. var.client_secret
+5. var.client_secret
     Please input the Azure client secret for the Azure Application ID known as client_id
 
     Enter a value: `<<client_secret which is the secret for the above as created in pre-req>>`
 
-5. var.cluster_name
+6. var.cluster_name
     
     Please input the k8s cluster name to create
 
     Enter a value: `<<cluster_name as "<<org>>aks<<yournameorBU>>"`
 
-6. var.dns_prefix
+7. var.dns_prefix
     
     Please input the DNS prefix to create
 
     Enter a value: `<<dns_prefix as "<<org>>aks<<yournameorBU>>"`
 
-7. var.helm_install_jenkins
+8. var.helm_install_jenkins
     
     Please input whether to install Jenkins by default- either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
-8. var.kube_version
+9. var.kube_version
     
     Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 (eastus)
 
-    Enter a value: `1.11.1`
+    Enter a value: `1.11.2`
 
-9. var.location
+10. var.location
     
     Please input the Azure region for deployment - for e.g: westeurope or eastus 
 
-    Enter a value: `westeurope`
+    Enter a value: `eastus`
 
-10. var.patch_svc_lbr_external_ip
+11. var.patch_svc_lbr_external_ip
 
     Please input to patch grafana, kubernetes-dashboard service via LBR Ingress External IP- either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
-11. var.resource_group_name
+12. var.resource_group_name
     
     Please input a new Azure Resource group name 
 
