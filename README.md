@@ -211,8 +211,9 @@ User/Password for grafana (generally `admin/admin`)
 `kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.user}" | base64 --d ; echo`
 
 #### Tesla K80 GK210 check and sanity for NC Series via k8s nvidia device plugin in cluster
-`kubectl describe node aks-default-17430891-0|grep nvidia
-Labels:             accelerator=nvidia
+`kubectl describe node aks-default-17430891-0|grep nvidia`
+
+`Labels:             accelerator=nvidia
   kube-system                nvidia-device-plugin-ptjjl                                       0 (0%)        0 (0%)      0 (0%)           0 (0%)
   `
 
