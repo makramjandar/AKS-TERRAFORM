@@ -14,7 +14,7 @@ Table of Contents (Azure Kubernetes Service with Terraform)
       * [Jenkins master](#jenkins-master)
       * [Tiller Server with Draft and Brigade Server](#tiller-server-with-draft-and-brigade-server)
       * [kube-prometheus-grafana](#kube-prometheus-grafana)
-      * [Tesla K80 GK210 check and sanity for NC Series via k8s nvidia device plugin in cluster]([tesla-k80-gk210-check-and-sanity-for-nc-series-via-k8s-nvidia-device-plugin-in-cluster]
+      * [Tesla K80 GK210 check and sanity for NC Series via k8s nvidia device plugin in cluster](tesla-k80-gk210-check-and-sanity-for-nc-series-via-k8s-nvidia-device-plugin-in-cluster)
 4. [License](#license)
 5. [Terraform graph](#terraform-graph)
 6. [Code of conduct](#code-of-conduct)
