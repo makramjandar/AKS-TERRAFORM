@@ -85,10 +85,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                                                                                              provisioner "local-exec" {
-                                                                                                                                command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
-                                                                                                                              } 
-                                                                                                                            **/
+                                                                                                                                            provisioner "local-exec" {
+                                                                                                                                              command = "echo "$(terraform output kube_config)" > ~/.kube/azurek8s && export KUBECONFIG=~/.kube/azurek8s"
+                                                                                                                                            } 
+                                                                                                                                          **/
   provisioner "local-exec" {
     command = "helm init --upgrade"
   }
@@ -112,10 +112,10 @@ resource "null_resource" "provision" {
   }
 
   /**
-                                                                                                                provisioner "local-exec" {
-                                                                                                                  command = "kubectl create -f azure-load-balancer.yaml"
-                                                                                                                }
-                                                                                                        **/
+                                                                                                                              provisioner "local-exec" {
+                                                                                                                                command = "kubectl create -f azure-load-balancer.yaml"
+                                                                                                                              }
+                                                                                                                      **/
   provisioner "local-exec" {
     command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/ && helm repo add gitlab https://charts.gitlab.io/ && helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/ && helm repo add bitnami https://charts.bitnami.com/bitnami"
   }
@@ -171,7 +171,7 @@ resource "null_resource" "provision" {
     }
   }
 
-  depends_on = ["${azurerm_kubernetes_cluster.k8s}"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s"]
 }
 
 resource "null_resource" "kube-prometheus-clone" {
@@ -193,7 +193,7 @@ resource "null_resource" "kube-prometheus-package" {
     command = "cd prometheus-operator && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes"
   }
 
-  depends_on = ["${azurerm_kubernetes_cluster.k8s}", "${null_resource.provision}", "${null_resource.kube-prometheus-clone}"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone"]
 }
 
 resource "null_resource" "kube-prometheus-install" {
@@ -206,7 +206,7 @@ resource "null_resource" "kube-prometheus-install" {
     }
   }
 
-  depends_on = ["${azurerm_kubernetes_cluster.k8s}", "${null_resource.provision}", "${null_resource.kube-prometheus-clone}", "${null_resource.kube-prometheus-package}"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone", "null_resource.kube-prometheus-package"]
 }
 
 resource "null_resource" "post-kube-prometheus" {
@@ -236,7 +236,7 @@ resource "null_resource" "post-kube-prometheus" {
   EOF
   }
 
-  depends_on = ["${azurerm_kubernetes_cluster.k8s}", "${null_resource.provision}", "${null_resource.kube-prometheus-clone}", "${null_resource.kube-prometheus-package}", "${null_resource.kube-prometheus-install}"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone", "null_resource.kube-prometheus-package", "null_resource.kube-prometheus-install"]
 }
 
 /**
