@@ -247,7 +247,7 @@ Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live i
 ### Manual stepped provisioning
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
-`docker run -dti --name=azurecli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp ~/.ssh/id_rsa azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
+`docker run -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp ~/.ssh/id_rsa azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
 
 #### Clone this repo in the azure-cli-python container
 `git clone https://github.com/dwaiba/aks-terraform`
