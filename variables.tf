@@ -57,7 +57,9 @@ variable "azurek8s_sku" {
 variable "resource_storage_acct" {
   default = "acisa12345"
 }
-
+variable "install_suitecrm" {
+  description = "Install SuiteCRM with MariaDB - true or false"
+}
 /**
 variable "cluster_name" {
   default = "hclaks"
