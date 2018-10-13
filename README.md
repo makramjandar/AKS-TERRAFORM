@@ -125,9 +125,9 @@ Expected Values and conventions for the 12 variables are as follows :
 
 9. var.kube_version
     
-    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 (eastus)
+    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3 (eastus)
 
-    Enter a value: `1.11.2`
+    Enter a value: `1.11.3`
 
 10. var.location
     
@@ -148,7 +148,7 @@ Expected Values and conventions for the 12 variables are as follows :
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
 
 
-> kube_version may vary from 1.9.x to 1.11.1 through 10.3.6- Please note 1.11.1 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.2 available in eastus. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
+> kube_version may vary from 1.9.x to 1.11.3 through 10.3.6- Please note 1.11.3 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.3 available in eastus and westeurope. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
