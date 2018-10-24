@@ -39,7 +39,7 @@ variable "patch_svc_lbr_external_ip" {
 }
 
 variable "ssh_public_key" {
-  default = "~/aks-terraform/id_rsa.pub"
+  default = "id_rsa.pub"
 }
 
 variable "admin_username" {
