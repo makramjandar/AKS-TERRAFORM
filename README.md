@@ -20,6 +20,8 @@ Table of Contents (Azure Kubernetes Service with Terraform)
 6. [Code of conduct](#code-of-conduct)
 7. [Todo](#todo)
 8. [Manual stepped provisioning](#manual-stepped-provisioning)
+   * [AKS Cluster](#aks-cluster)
+   * [AKS GPU Cluster](#aks-gpu-cluster)
    * [ Run Azure cli container and copy terraform binary along with id_rsa to it](#run-azure-cli-container-and-copy-terraform-binary-along-with-id_rsa-to-it)
    * [Clone this repo in the azure-cli-python container](#clone-this-repo-in-the-azure-cli-python-container)
    * [Fill in the variables.tf with default values](#fill-in-the-variables-file-with-default-values)
@@ -250,9 +252,67 @@ Please shoot in dockerized format:
 * **Kashti**
 
 ### Manual stepped provisioning
+
+> `sudo` uage is better as local tools install with terraform would work.
+
+### AKS Cluster
+https://github.com/dwaiba/aks-terraform
+
+Pre-req: 
+
+1. docker run -ti docker4x/create-sp-azure aksadmin would generate client id and client secret post authentication via the container to https://aks.ms/devicelogin.
+2. id_rsa.pub **should be present** in aks-terraform folder.
+3. Have to be root or run as sudo
+
+Plan:
+
+`git clone https://github.com/dwaiba/aks-terraform && cd aks-terraform`
+
+`sudo su`
+
+`az login && terraform init && terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
+
+Apply:
+
+`terraform apply "run.plan"`
+
+Destroy:
+
+`terraform destroy -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks`
+
+
+### AKS GPU Cluster
+
+> `sudo` uage is better as local tools install with terraform would work.
+
+
+https://github.com/dwaiba/aks-terraform - "GPU Compute" k8s for AKS - 2 Tesla K80s available for cluster and seen by k8s
+
+Pre-req: 
+
+1. docker run -ti docker4x/create-sp-azure aksadmin would generate client id and client secret post authentication via the container to https://aks.ms/devicelogin.
+2. id_rsa.pub **should be present** in aks-terraform folder.
+
+
+Plan:
+`git clone https://github.com/dwaiba/aks-terraform && cd aks-terraform`
+
+`sudo su`
+
+`az login && terraform init && terraform plan -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu -out "run.plan"`
+
+Apply: 
+
+`terraform apply "run.plan"`
+
+Destroy:
+
+`terraform destroy -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu`
+
+
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
 
-`docker run -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp ~/.ssh/id_rsa azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
+`docker run -dti --name=azure-cli-python --restart=always azuresdk/azure-cli-python && docker cp terraform azure-cli-python:/ && docker cp id_rsa.pub azure-cli-python:/ && docker exec -ti azure-cli-python bash -c "az login && bash"`
 
 #### Clone this repo in the azure-cli-python container
 `git clone https://github.com/dwaiba/aks-terraform`
