@@ -237,18 +237,14 @@ Please generate dot format (Graphviz) terraform configuration graphs for visual 
 
 `terraform graph | dot -Tsvg > graph.svg`
 
-Attached is the present master Branch graph. (Click to enlarge)
-
-  <img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/graph.png"/>
   
 Also, one can use [Blast Radius](https://github.com/28mm/blast-radius) on live initialized terraform project to view graph.
+
 Please shoot in dockerized format:
 
 `docker ps -a|grep blast-radius|awk '{print $1}'|xargs docker kill && rm -rf aks-terraform && git clone https://github.com/dwaiba/aks-terraform && cd aks-terraform && terraform init && docker run --cap-add=SYS_ADMIN -dit --rm -p 5000:5000 -v $(pwd):/workdir:ro 28mm/blast-radius && cd ../`
 
- A live example is [here](http://buildservers.westeurope.cloudapp.azure.com:5000/) for this project. A picture is attached below on master. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
-
-<img src="https://raw.githubusercontent.com/dwaiba/aks-terraform/master/blast-radius.jpg">
+ A live example is [here](http://buildservers.westeurope.cloudapp.azure.com:5000/) for this project. [Blast Radius](https://github.com/28mm/blast-radius) is a pip3 install.
 
 ### Todo
 
