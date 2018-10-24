@@ -37,7 +37,7 @@ Have Fun checking a 4x speed AKS creation via asciinema - 3 node cluster with re
 
 
 ### Create ServicePrincipal and Subscription ID
-`docker run -ti docker4x/create-sp-azure aksadmin`
+**`docker run -ti docker4x/create-sp-azure aksadmin`**
 
 `Your access credentials ==================================================`
 
@@ -71,10 +71,11 @@ Terraform will now prompt for the 12 variables as below in sequence:
 6. cluster_name
 7. dns_prefix
 8. helm_install_jenkins
-9. kube_version
-10. location
-11. patch_svc_lbr_external_ip
-12. resource_group_name
+9. install_suitecrm
+10. kube_version
+11. location
+12. patch_svc_lbr_external_ip
+13. resource_group_name
 
 Expected Values and conventions for the 12 variables are as follows : 
 
@@ -125,25 +126,29 @@ Expected Values and conventions for the 12 variables are as follows :
 
     Enter a value: `<<true/false>>`
 
-9. var.kube_version
+9. var.install_suitecrm
     
-    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3 (eastus)
+    Install SuiteCRM with MariaDB - true or false
+
+10. var.kube_version
+    
+    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3
 
     Enter a value: `1.11.3`
 
-10. var.location
+11. var.location
     
     Please input the Azure region for deployment - for e.g: westeurope or eastus 
 
     Enter a value: `eastus`
 
-11. var.patch_svc_lbr_external_ip
+12. var.patch_svc_lbr_external_ip
 
     Please input to patch grafana, kubernetes-dashboard service via LBR Ingress External IP- either **true** or **false**
 
     Enter a value: `<<true/false>>`
 
-12. var.resource_group_name
+13. var.resource_group_name
     
     Please input a new Azure Resource group name 
 
