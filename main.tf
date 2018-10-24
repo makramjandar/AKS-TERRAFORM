@@ -63,7 +63,9 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "chmod +x ./kubectl;"
   }
-
+  provisioner "local-exec" {
+    command = "export PATH=/usr/local/bin:$PATH;"
+  }
   provisioner "local-exec" {
     command = "mv ./kubectl /usr/local/bin/kubectl;"
   }
