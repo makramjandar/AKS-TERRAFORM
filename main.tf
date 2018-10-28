@@ -79,7 +79,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "./get_helm.sh"
+    command = "./get_helm.sh && sudo cp /usr/local/bin/helm /usr/bin/helm"
   }
 
   provisioner "local-exec" {
