@@ -135,7 +135,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.15.0-linux-amd64.tar.gz | tar xvz"
+    command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.16.0-linux-amd64.tar.gz | tar xvz"
   }
 
   provisioner "local-exec" {
