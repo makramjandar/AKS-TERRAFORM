@@ -67,7 +67,7 @@ resource "null_resource" "provision" {
     command = "export PATH=/usr/local/bin:$PATH;"
   }
   provisioner "local-exec" {
-    command = "mv ./kubectl /usr/local/bin/kubectl && sudo cp /usr/local/bin/kubectl /usr/bin/kubectl;"
+    command = "sudo mv ./kubectl /usr/local/bin/kubectl && sudo cp /usr/local/bin/kubectl /usr/bin/kubectl;"
   }
 
   provisioner "local-exec" {
@@ -139,7 +139,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "cp linux-amd64/draft /usr/local/bin/draft && cp linux-amd64/draft /usr/bin/draft"
+    command = "sudo cp linux-amd64/draft /usr/local/bin/draft && sudo cp linux-amd64/draft /usr/bin/draft"
   }
 
   provisioner "local-exec" {

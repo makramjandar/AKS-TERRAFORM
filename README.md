@@ -263,7 +263,7 @@ Pre-req:
 
 1. docker run -ti docker4x/create-sp-azure aksadmin would generate client id and client secret post authentication via the container to https://aks.ms/devicelogin.
 2. id_rsa.pub **should be present** in aks-terraform folder.
-3. Have to be root or run as sudo
+3. Have to be root or run as sudo with user having sudo privileges.
 
 Plan:
 
