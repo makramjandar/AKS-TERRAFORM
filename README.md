@@ -61,7 +61,7 @@ Create a new cluster -Please note **docker** should be installed with **terrafor
 
 **`wget https://raw.githubusercontent.com/dwaiba/aks-terraform/master/create_cluster.sh && chmod +x create_cluster.sh && ./create_cluster.sh`**
 
-Terraform will now prompt for the 12 variables as below in sequence:
+Terraform will now prompt for the 13 variables as below in sequence:
 
 1. agent_count 
 2. azurek8s_sku
@@ -77,7 +77,7 @@ Terraform will now prompt for the 12 variables as below in sequence:
 12. patch_svc_lbr_external_ip
 13. resource_group_name
 
-Expected Values and conventions for the 12 variables are as follows : 
+Expected Values and conventions for the 13 variables are as follows : 
 
 1. var.agent_count
     
@@ -213,9 +213,9 @@ Dashboard available post port forward via:
 
 User/Password for grafana (generally `admin/admin`)
 
-`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.password}" | base64 --d ; echo`
+`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.password}" | base64 -d ; echo`
 
-`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.user}" | base64 --d ; echo`
+`kubectl get secret --namespace monitoring kube-prometheus-grafana -o jsonpath="{.data.user}" | base64 -d ; echo`
 
 #### Tesla K80 GK210 check and sanity for NC Series via k8s nvidia device plugin in cluster
 `kubectl get nodes|awk '{print $1}'|sed 1d|xargs kubectl describe node|grep nvidia`
@@ -271,7 +271,7 @@ Plan:
 
 `sudo su`
 
-`az login && terraform init && terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
+`rm -rf ~/.kube && az login && terraform init && terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
 
 Apply:
 
@@ -284,7 +284,7 @@ Destroy:
 
 ### AKS GPU Cluster
 
-> `sudo` uage is better as local tools install with terraform would work.
+> `sudo` usage is better as local tools install with terraform would work.
 
 
 https://github.com/dwaiba/aks-terraform - "GPU Compute" k8s for AKS - 2 Tesla K80s available for cluster and seen by k8s
