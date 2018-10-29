@@ -81,9 +81,9 @@ Expected Values and conventions for the 13 variables are as follows :
 
 1. var.agent_count
     
-    Number of Cluster Agent Nodes (GPU Quota is defaulted to only 1 Standard_NC6 per subscription) - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
+    Number of Cluster Agent Nodes (GPU Quota is defaulted to only 2 Standard_NC6 per subscription) - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes
 
-    Enter a value: `<<agent_count are the number of "agents" - 1 for a GPU (or more if you have quota or 3 or 5 or 7>>`
+    Enter a value: `<<agent_count are the number of "agents" - 2 for a GPU (or more if you have quota or 3 or 5 or 7>>`
 
 2. var.azure_container_registry_name
     
@@ -93,7 +93,7 @@ Expected Values and conventions for the 13 variables are as follows :
 
 3. var.azurek8s_sku
 
-    Sku of Cluster node- Recommend -Standard_F4s_v2- for normal and -Standard_NC6- for GPU (GPU Quota is defaulted to only 1 per subscription) Please view Azure Linux VM Sizes at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
+    Sku of Cluster node- Recommend -Standard_F4s_v2- for normal and -Standard_NC6- for GPU (GPU Quota is defaulted to only 2 per subscription) Please view Azure Linux VM Sizes at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes
 
     Enter a value: `Standard_F4s_v2`
 
