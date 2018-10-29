@@ -83,7 +83,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
+    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
   }
 
   /**
