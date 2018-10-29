@@ -139,7 +139,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "cp linux-amd64/draft /usr/local/bin/draft"
+    command = "cp linux-amd64/draft /usr/local/bin/draft && cp linux-amd64/draft /usr/bin/draft"
   }
 
   provisioner "local-exec" {
