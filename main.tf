@@ -53,11 +53,11 @@ resource "azurerm_container_registry" "acrtest" {
 
 resource "null_resource" "provision" {
   provisioner "local-exec" {
-    command = "az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
+    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
   }
 
   provisioner "local-exec" {
-    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
+    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
   }
 
   provisioner "local-exec" {
