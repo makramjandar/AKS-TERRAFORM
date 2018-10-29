@@ -57,7 +57,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
+    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl;"
   }
 
   provisioner "local-exec" {
@@ -83,7 +83,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
+    command = "kubectl config use-context ${azurerm_kubernetes_cluster.k8s.name}"
   }
 
   /**
