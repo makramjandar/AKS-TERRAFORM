@@ -53,7 +53,7 @@ resource "azurerm_container_registry" "acrtest" {
 
 resource "null_resource" "provision" {
   provisioner "local-exec" {
-    command = "rm -rf ~/.kube && sudo rm -rf /root/.kube && az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
+    command = "rm -rf ~/.kube && rm -rf /root/.kube && az aks get-credentials -n ${azurerm_kubernetes_cluster.k8s.name} -g ${azurerm_resource_group.k8s.name}"
   }
 
   provisioner "local-exec" {
@@ -67,7 +67,7 @@ resource "null_resource" "provision" {
     command = "export PATH=/usr/local/bin:$PATH;"
   }
   provisioner "local-exec" {
-    command = "sudo mv ./kubectl /usr/local/bin/kubectl && sudo cp /usr/local/bin/kubectl /usr/bin/kubectl;"
+    command = "mv ./kubectl /usr/local/bin/kubectl && cp /usr/local/bin/kubectl /usr/bin/kubectl;"
   }
 
   provisioner "local-exec" {
@@ -79,7 +79,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "./get_helm.sh && sudo cp /usr/local/bin/helm /usr/bin/helm"
+    command = "./get_helm.sh && cp /usr/local/bin/helm /usr/bin/helm"
   }
 
   provisioner "local-exec" {
@@ -139,7 +139,7 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
-    command = "sudo cp linux-amd64/draft /usr/local/bin/draft && sudo cp linux-amd64/draft /usr/bin/draft"
+    command = "cp linux-amd64/draft /usr/local/bin/draft && cp linux-amd64/draft /usr/bin/draft"
   }
 
   provisioner "local-exec" {
