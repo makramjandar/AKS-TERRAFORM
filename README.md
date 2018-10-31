@@ -271,15 +271,15 @@ Plan:
 
 `sudo su`
 
-`rm -rf ~/.kube && az login && terraform init && terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
+`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
 
 Apply:
 
-`terraform apply "run.plan"`
+`sudo terraform apply "run.plan"`
 
 Destroy:
 
-`terraform destroy -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks`
+`sudo terraform destroy -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks`
 
 
 ### AKS GPU Cluster
@@ -298,17 +298,17 @@ Pre-req:
 Plan:
 `git clone https://github.com/dwaiba/aks-terraform && cd aks-terraform`
 
-`sudo su`
+`sudo ls -alrt`
 
-`az login && terraform init && terraform plan -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu -out "run.plan"`
+`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu -out "run.plan"`
 
 Apply: 
 
-`terraform apply "run.plan"`
+`sudo terraform apply "run.plan"`
 
 Destroy:
 
-`terraform destroy -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu`
+`sudo terraform destroy -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu`
 
 
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
@@ -327,7 +327,7 @@ Optionally, you can also install kubectl locally. This repo installs kubectl in 
 
 `mv ./kubectl /usr/local/bin/kubectl;`
 
-`mv /id_rsa.pub /aks-terraform;`
+`mv ../id_rsa.pub /aks-terraform;`
 
 #### Fill in the variables file with default values
 
