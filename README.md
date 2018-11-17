@@ -132,9 +132,9 @@ Expected Values and conventions for the 13 variables are as follows :
 
 10. var.kube_version
     
-    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3
+    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3 or 1.11.4
 
-    Enter a value: `1.11.3`
+    Enter a value: `1.11.4`
 
 11. var.location
     
@@ -155,7 +155,7 @@ Expected Values and conventions for the 13 variables are as follows :
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
 
 
-> kube_version may vary from 1.9.x to 1.11.3 through 10.3.6- Please note 1.11.3 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.3 available in eastus and westeurope. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
+> kube_version may vary from 1.9.x to 1.11.4 through 10.3.6- Please note 1.11.4 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.4 available in eastus and westeurope. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
@@ -271,7 +271,7 @@ Plan:
 
 `sudo su`
 
-`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
+`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.4 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks -out "run.plan"`
 
 Apply:
 
@@ -279,7 +279,7 @@ Apply:
 
 Destroy:
 
-`sudo terraform destroy -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks`
+`sudo terraform destroy -var agent_count=3 -var azure_container_registry_name=hclaks -var azurek8s_sku=Standard_F4s_v2 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>> -var cluster_name=hclaksclus -var dns_prefix=hclaks -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.4 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaks`
 
 
 ### AKS GPU Cluster
@@ -300,7 +300,7 @@ Plan:
 
 `sudo ls -alrt`
 
-`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu -out "run.plan"`
+`sudo az login && sudo terraform init && sudo terraform plan -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.4 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu -out "run.plan"`
 
 Apply: 
 
@@ -308,7 +308,7 @@ Apply:
 
 Destroy:
 
-`sudo terraform destroy -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.3 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu`
+`sudo terraform destroy -var agent_count=2 -var azure_container_registry_name=hclaksgpu -var azurek8s_sku=Standard_NC6 -var client_id=<<your app client id>> -var client_secret=<<your_app_secret>>H -var cluster_name=hclaksclusgpu -var dns_prefix=hclaksgpu -var helm_install_jenkins=false -var install_suitecrm=false -var kube_version=1.11.4 -var location=westeurope -var patch_svc_lbr_external_ip=true -var resource_group_name=hclaksgpu`
 
 
 #### Run Azure cli container and copy terraform binary along with id_rsa to it
