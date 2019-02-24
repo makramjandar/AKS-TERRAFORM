@@ -115,7 +115,7 @@ resource "null_resource" "provision" {
                                                                                                                                                                           }
                                                                                                                                                                   **/
   provisioner "local-exec" {
-    command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/ && helm repo add gitlab https://charts.gitlab.io/ && helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/ && helm repo add bitnami https://charts.bitnami.com/bitnami"
+    command = "helm repo add azure-samples https://azure-samples.github.io/helm-charts/ && helm repo add gitlab https://charts.gitlab.io/ && helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/ && helm repo add bitnami https://charts.bitnami.com/bitnami && helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/"
   }
 
   provisioner "local-exec" {
@@ -176,33 +176,15 @@ resource "null_resource" "provision" {
   depends_on = ["azurerm_kubernetes_cluster.k8s"]
 }
 
-resource "null_resource" "kube-prometheus-clone" {
-  provisioner "local-exec" {
-    command = "git clone https://github.com/coreos/prometheus-operator.git"
-  }
-}
 
-resource "null_resource" "kube-prometheus-package" {
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && kubectl apply -f bundle.yaml"
-  }
-
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && mkdir -p helm/kube-prometheus/charts"
-  }
-
-  provisioner "local-exec" {
-    command = "cd prometheus-operator && helm package -d helm/kube-prometheus/charts helm/alertmanager helm/grafana helm/prometheus  helm/exporter-kube-dns helm/exporter-kube-scheduler helm/exporter-kubelets helm/exporter-node helm/exporter-kube-controller-manager helm/exporter-kube-etcd helm/exporter-kube-state helm/exporter-coredns helm/exporter-kubernetes"
-  }
-
-  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone"]
-}
 
 resource "null_resource" "kube-racecheck" {
   /**
                                       Kubernetes Race condition check for older than 1.11.* version- https://github.com/kubernetes/kubernetes/issues/62725
                                       This is specific when CRD status is complete but API Server is not actually available. Kicks in for kube-prometheus for older than 11.1.* k8s version
                                       **/
+
+
   provisioner "local-exec" {
     command = <<EOF
     kube_major=$(echo ${var.kube_version}|cut -d'.' -f 1-2)
@@ -218,12 +200,12 @@ resource "null_resource" "kube-racecheck" {
 EOF
   }
 
-  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone", "null_resource.kube-prometheus-package"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision"]
 }
 
 resource "null_resource" "kube-prometheus-install" {
   provisioner "local-exec" {
-    command = "cd prometheus-operator && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
+    command = "helm install coreos/prometheus-operator --name prometheus-operator --wait --namespace monitoring --set global.rbacEnable=false && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
 
     timeouts {
       create = "20m"
@@ -231,7 +213,7 @@ resource "null_resource" "kube-prometheus-install" {
     }
   }
 
-  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone", "null_resource.kube-prometheus-package", "null_resource.kube-racecheck"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-racecheck"]
 }
 
 resource "null_resource" "post-kube-prometheus" {
@@ -270,7 +252,7 @@ resource "null_resource" "post-kube-prometheus" {
           EOF
   }
   
-  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-prometheus-clone", "null_resource.kube-prometheus-package", "null_resource.kube-racecheck", "null_resource.kube-prometheus-install"]
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision",  "null_resource.kube-racecheck", "null_resource.kube-prometheus-install"]
 }
 
 /**
