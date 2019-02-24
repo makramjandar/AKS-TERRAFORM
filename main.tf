@@ -205,7 +205,7 @@ EOF
 
 resource "null_resource" "kube-prometheus-install" {
   provisioner "local-exec" {
-    command = "helm install coreos/prometheus-operator --name prometheus-operator --wait --namespace monitoring --set global.rbacEnable=false && helm install helm/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
+    command = "helm install coreos/prometheus-operator --name prometheus-operator --wait --namespace monitoring --set global.rbacEnable=false && helm install coreos/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
 
     timeouts {
       create = "20m"
