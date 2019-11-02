@@ -123,17 +123,19 @@ resource "null_resource" "provision" {
   }
 
   provisioner "local-exec" {
+    command = "helm install azure-samples/aks-helloworld"
+  }
+  /**
+  provisioner "local-exec" {
     command = "helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false"
   }
 
-  provisioner "local-exec" {
-    command = "helm install azure-samples/aks-helloworld"
-  }
+
 
   provisioner "local-exec" {
     command = "helm install stable/cert-manager  --set ingressShim.defaultIssuerName=letsencrypt-staging  --set ingressShim.defaultIssuerKind=ClusterIssuer --set rbac.create=false  --set serviceAccount.create=false"
   }
-
+**/
   provisioner "local-exec" {
     command = "wget -qO- https://azuredraft.blob.core.windows.net/draft/draft-v0.16.0-linux-amd64.tar.gz | tar xvz"
   }
@@ -166,7 +168,7 @@ resource "null_resource" "provision" {
                 echo ${var.helm_install_jenkins}
             fi
       EOF
-/**
+    /**
     timeouts {
       create = "20m"
       delete = "20m"
@@ -207,7 +209,7 @@ EOF
 resource "null_resource" "kube-prometheus-install" {
   provisioner "local-exec" {
     command = "helm install coreos/prometheus-operator --name prometheus-operator --wait --namespace monitoring --set global.rbacEnable=false && helm install coreos/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
-/**
+    /**
     timeouts {
       create = "20m"
       delete = "20m"
@@ -253,8 +255,8 @@ resource "null_resource" "post-kube-prometheus" {
                 fi
           EOF
   }
-  
-  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision",  "null_resource.kube-racecheck", "null_resource.kube-prometheus-install"]
+
+  depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-racecheck", "null_resource.kube-prometheus-install"]
 }
 
 /**

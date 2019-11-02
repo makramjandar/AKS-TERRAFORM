@@ -32,6 +32,7 @@ variable "azure_container_registry_name" {
 
 variable "helm_install_jenkins" {
   description = "Please input whether to install Jenkins by default- true or false"
+  default     = false
 }
 
 variable "patch_svc_lbr_external_ip" {
@@ -59,6 +60,7 @@ variable "resource_storage_acct" {
 }
 variable "install_suitecrm" {
   description = "Install SuiteCRM with MariaDB - true or false"
+  default     = false
 }
 /**
 variable "cluster_name" {

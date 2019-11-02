@@ -1,7 +1,6 @@
 <img src="https://camo.githubusercontent.com/deb5e59540f33524f80ca6e781894672b9b152b0/68747470733a2f2f617a757265636f6d63646e2e617a757265656467652e6e65742f6376742d346261316163363334313062623262626539663163326137626564633537383934626265393735343330396439643338306465656463646637383530303437652f696d616765732f7368617265642f736f6369616c2f617a7572652d69636f6e2d323530783235302e706e67" width="50" height="50" /> <img src="https://azurecomcdn.azureedge.net/cvt-c18d17f36d00dc6637f795280fe675826238c2c9ed2c998cfa9460ed4a2f9115/images/page/services/kubernetes-service/scale-and-run.svg" width="100" height="100" /> <img src="https://dd3hq3hnmbuiz.cloudfront.net/images/Terraform-Background.jpg" width="100" height="50" /> <img src="https://carlos.mendible.com/assets/img/posts/aks.png" width="100" height="50" />   <img src="https://azure.microsoft.com/svghandler/container-registry/?width=600&height=315" width="90" height="50" /> <a href="https://helm.sh/"><img src="http://www.razibinrais.com/wp-content/uploads/2018/07/helm.png" width="50" height="50" /></a> <a href="https://draft.sh/"><img src="https://ordina-jworks.github.io/img/2018-02-12-Azure-Draft/draft-logo.png" width="110" height="50" /></a> <a href="https://brigade.sh/"><img src="https://brigade.sh/assets/images/brigade.png" width="110" height="50" /></a>
 
 This repository is actively maintained @ https://github.com/dwaiba/aks-terraform
-To be ported to 0.12.12
   
 Table of Contents (Azure Kubernetes Service with Terraform)
 =================
@@ -133,9 +132,9 @@ Expected Values and conventions for the 13 variables are as follows :
 
 10. var.kube_version
     
-    Please input the k8s version - 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3 or 1.11.4
+    Please input the k8s version - 1.14.8 or older ones like 1.10.6 or 1.11.1 or 1.11.2 or 1.11.3 or 1.11.4
 
-    Enter a value: `1.11.4`
+    Enter a value: `1.14.8`
 
 11. var.location
     
@@ -156,7 +155,7 @@ Expected Values and conventions for the 13 variables are as follows :
     Enter a value: `<<Azure Resource group for aks service as "<<org>>aks<<yournameorBU>>"`
 
 
-> kube_version may vary from 1.9.x to 1.11.4 through 10.3.6- Please note 1.11.4 is ~~only~~ now available in ~~the American~~ all regions. Latest is 1.11.4 available in eastus and westeurope. Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
+> kube_version latest for aks is 1.14.8 and may vary from 1.9.x to 1.11.4 through 10.3.6- . Please view Azure Service Availability for [AKS in Regions](https://azure.microsoft.com/en-us/global-infrastructure/services/) and also via `az aks get-versions --location <<locationname>>`
 
 > The DNSPrefix must contain between 3 and 45 characters and can contain only letters, numbers, and hyphens.  It must start with a letter and must end with a letter or a number. 
 
