@@ -166,12 +166,12 @@ resource "null_resource" "provision" {
                 echo ${var.helm_install_jenkins}
             fi
       EOF
-/*
+/**
     timeouts {
       create = "20m"
       delete = "20m"
     }
-*/
+**/
   }
 
   depends_on = ["azurerm_kubernetes_cluster.k8s"]
@@ -207,12 +207,12 @@ EOF
 resource "null_resource" "kube-prometheus-install" {
   provisioner "local-exec" {
     command = "helm install coreos/prometheus-operator --name prometheus-operator --wait --namespace monitoring --set global.rbacEnable=false && helm install coreos/kube-prometheus --name kube-prometheus --wait --namespace monitoring --set global.rbacEnable=false"
-*/
+/**
     timeouts {
       create = "20m"
       delete = "20m"
     }
-    */
+    **/
   }
 
   depends_on = ["azurerm_kubernetes_cluster.k8s", "null_resource.provision", "null_resource.kube-racecheck"]
