@@ -7,10 +7,11 @@
 # Module directory
 .terraform/
 # Public key 
-id_rsa.pub
+id_rsa*
 # Terraform binary
 terraform
 kubectl
 get_helm.sh
 .prometheus-operator/
+
 

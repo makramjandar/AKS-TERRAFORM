@@ -151,7 +151,7 @@ resource "null_resource" "provision" {
   provisioner "local-exec" {
     command = "draft config set registry ${azurerm_container_registry.acrtest.name}.azurecr.io"
   }
-
+/**
   provisioner "local-exec" {
     command = "helm repo add brigade https://azure.github.io/brigade"
   }
@@ -168,7 +168,7 @@ resource "null_resource" "provision" {
                 echo ${var.helm_install_jenkins}
             fi
       EOF
-    /**
+    
     timeouts {
       create = "20m"
       delete = "20m"
