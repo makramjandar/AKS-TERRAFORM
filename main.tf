@@ -173,9 +173,9 @@ resource "null_resource" "provision" {
       create = "20m"
       delete = "20m"
     }
-**/
-  }
 
+  }
+**/
   depends_on = ["azurerm_kubernetes_cluster.k8s"]
 }
 
