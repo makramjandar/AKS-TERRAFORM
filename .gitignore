@@ -13,5 +13,6 @@ terraform
 kubectl
 get_helm.sh
 .prometheus-operator/
+.idea/
 
 
