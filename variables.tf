@@ -1,13 +1,16 @@
 variable "resource_group_name" {
   description = "Please input a new Azure Resource group name "
+  default     = "poc"
 }
 
 variable "kube_version" {
   description = "Please input the k8s version -  1.11.4 is the latest in westeurope or eastus"
+  default     = "1.22.2"
 }
 
 variable "location" {
   description = "Please input the Azure region for deployment - for e.g: westeurope or eastus "
+  default     = "westeurope"
 }
 
 variable "client_id" {
@@ -20,14 +23,17 @@ variable "client_secret" {
 
 variable "cluster_name" {
   description = "Please input the k8s cluster name to create"
+  default     = "pocaks"
 }
 
 variable "dns_prefix" {
   description = "Please input the DNS prefix to create"
+  default     = "pocdns"
 }
 
 variable "azure_container_registry_name" {
   description = "Please input the ACR name to create in the same Resource Group"
+  default     = "pocacr543210"
 }
 
 variable "helm_install_jenkins" {
@@ -37,6 +43,7 @@ variable "helm_install_jenkins" {
 
 variable "patch_svc_lbr_external_ip" {
   description = "Please input to patch grafana, kubernetes-dashboard service for LBR Ingress External IP (expose)- true or false"
+  default     = true
 }
 
 variable "ssh_public_key" {
@@ -49,10 +56,12 @@ variable "admin_username" {
 
 variable "agent_count" {
   description = "Number of Cluster Agent Nodes (GPU Quota is defaulted to only 1 Standard_NC6 per subscription) - Please view https://docs.microsoft.com/en-us/azure/aks/faq#are-security-updates-applied-to-aks-agent-nodes"
+  default     = 2
 }
 
 variable "azurek8s_sku" {
   description = "Sku of Cluster node- Recommend -Standard_F4s_v2- for normal and -Standard_NC6- for GPU (GPU Quota is defaulted to only 1 per subscription) Please view Azure Linux VM Sizes at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes"
+  default     = "Standard_F4s_v2"
 }
 
 variable "resource_storage_acct" {
@@ -60,44 +69,8 @@ variable "resource_storage_acct" {
 }
 variable "install_suitecrm" {
   description = "Install SuiteCRM with MariaDB - true or false"
-  default     = false
+  default     = true
 }
-/**
-variable "cluster_name" {
-  default = "hclaks"
-}
-
-variable "dns_prefix" {
-  default = "hclaks"
-}
-variable "resource_group_name" {
-  default = "hclaks"
-}
-
-variable "location" {
-  default = "westeurope"
-}
-
-variable "client_id" {
-  default     = ""
-}
-
-variable "client_secret" {
-  default     = ""
-}
-
-variable "resource_aci-dev-share" {
-  default = "aci-dev-share"
-}
-
-variable "resource_aci-hw" {
-  default = "aci-helloworld"
-}
-
-variable "resource_dns_aci-label" {
-  default = "aci-dev-hw"
-}
-**/
 locals {
   username = "clusterUser_${var.cluster_name}_{$var.cluster_name}"
 }
